@@ -1,0 +1,1544 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TermPoint — Timetabling Made Easy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet" />
+    <style>
+      :root {
+        --ink: #1a1a2e;
+        --paper: #f6f4f0;
+        --accent: #2d5a27;
+        --accent-light: #3a7a32;
+        --accent-wash: #e8f0e6;
+        --warm: #c5a55a;
+        --warm-wash: #faf6ec;
+        --red: #b44;
+        --red-wash: #fceaea;
+        --mid: #6b6b7b;
+        --rule: #d5d2cc;
+        --card: #ffffff;
+        --shadow: rgba(26, 26, 46, 0.08);
+        --radius: 6px;
+      }
+
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        color: var(--ink);
+        background: var(--paper);
+        line-height: 1.65;
+        font-size: 17px;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ── Utility ─────────────────────── */
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 clamp(24px, 5vw, 60px);
+      }
+
+      /* ── Nav ─────────────────────────── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: rgba(246, 244, 240, 0.85);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--rule);
+      }
+      nav .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 64px;
+      }
+      .logo {
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 500;
+        font-size: 18px;
+        letter-spacing: -0.5px;
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .logo span {
+        color: var(--accent);
+      }
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 32px;
+      }
+      nav a {
+        color: var(--mid);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+        transition: color 0.2s;
+      }
+      nav a:hover {
+        color: var(--ink);
+      }
+
+      /* ── Hero ────────────────────────── */
+      .hero {
+        padding: 140px 0 80px;
+        text-align: center;
+      }
+      .hero-overline {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 20px;
+        opacity: 0;
+        animation: fadeUp 0.8s 0.2s forwards;
+      }
+      .hero h1 {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(36px, 5.5vw, 64px);
+        line-height: 1.1;
+        font-weight: 400;
+        max-width: 800px;
+        margin: 0 auto 24px;
+        opacity: 0;
+        animation: fadeUp 0.8s 0.4s forwards;
+      }
+      .hero h1 em {
+        font-style: italic;
+        color: var(--accent);
+      }
+      .hero-sub {
+        font-size: 19px;
+        color: var(--mid);
+        max-width: 760px;
+        margin: 0 auto 40px;
+        font-weight: 300;
+        opacity: 0;
+        animation: fadeUp 0.8s 0.6s forwards;
+      }
+
+      .hero-sub + .hero-sub {
+        margin-top: 0.4em;
+      }
+      .hero-sub:has(+ .hero-sub) {
+        margin-bottom: 0;
+      }
+
+      .hero-cta-row {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        margin-top: 32px;
+      }
+
+      .hero-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--accent);
+        color: #fff;
+        padding: 14px 32px;
+        border-radius: var(--radius);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 15px;
+        letter-spacing: 0.2px;
+        transition:
+          background 0.25s,
+          transform 0.2s;
+        opacity: 0;
+        animation: fadeUp 0.8s 0.8s forwards;
+      }
+      .hero-cta:hover {
+        background: var(--accent-light);
+        transform: translateY(-1px);
+      }
+      .hero-cta svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      /* ── Screenshot frame ────────────── */
+      .screenshot-frame {
+        max-width: 1500px;
+        margin: 48px auto 0;
+        background: var(--card);
+        border-radius: 12px;
+
+        opacity: 0;
+        animation: fadeUp 1s 1s forwards;
+      }
+      .screenshot-titlebar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 14px 18px;
+        background: #e9e7e2;
+        border-bottom: 1px solid var(--rule);
+      }
+      .screenshot-dot {
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background: #ccc8c0;
+      }
+      .screenshot-titlebar-text {
+        flex: 1;
+        text-align: center;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        color: var(--mid);
+      }
+      .screenshot-body {
+        position: relative;
+        aspect-ratio: 16 / 9.5;
+        background: #f0eeea;
+        overflow: hidden;
+      }
+
+      /* ── Slideshow ────────────────────── */
+      .slide {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.6s ease;
+        pointer-events: none;
+      }
+      .slide.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .slide-inner {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: repeating-linear-gradient(0deg, transparent, transparent 31px, #edecea 31px, #edecea 32px),
+          repeating-linear-gradient(90deg, transparent, transparent 119px, #edecea 119px, #edecea 120px);
+      }
+
+      .slide-inner img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+      }
+      .slide-placeholder {
+        text-align: center;
+        color: var(--mid);
+        font-size: 14px;
+      }
+      .slide-placeholder svg {
+        display: block;
+        margin: 0 auto 12px;
+        opacity: 0.3;
+      }
+
+      /* Caption bar */
+      .slide-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 14px 24px;
+        background: linear-gradient(transparent, rgba(26, 26, 46, 0.72));
+        color: #000000;
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 0.1px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .slide-caption-number {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 2px 8px;
+        border-radius: 3px;
+        flex-shrink: 0;
+      }
+
+      /* Controls */
+      .slideshow-controls {
+        position: absolute;
+        bottom: 16px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        z-index: 5;
+      }
+      .slideshow-dots {
+        display: flex;
+        gap: 6px;
+      }
+      .slideshow-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.35);
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        transition:
+          background 0.3s,
+          transform 0.2s;
+      }
+      .slideshow-dot.active {
+        background: #fff;
+        transform: scale(1.2);
+      }
+      .slideshow-dot:hover {
+        background: rgba(255, 255, 255, 0.7);
+      }
+      .slideshow-arrow {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s;
+        backdrop-filter: blur(4px);
+      }
+      .slideshow-arrow:hover {
+        background: rgba(255, 255, 255, 0.25);
+      }
+      .slideshow-arrow svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      /* Progress bar */
+      .slideshow-progress {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 3px;
+        background: var(--accent);
+        z-index: 5;
+        transition: width 0.3s ease;
+      }
+
+      /* ── Problem section ─────────────── */
+      .problem {
+        padding: 100px 0 80px;
+      }
+      .section-overline {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 16px;
+      }
+      .problem h2 {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(28px, 3.5vw, 42px);
+        font-weight: 400;
+        line-height: 1.2;
+        max-width: 640px;
+        margin-bottom: 48px;
+      }
+
+      .pain-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 24px;
+      }
+      .pain-card {
+        background: var(--card);
+        border: 1px solid var(--rule);
+        border-radius: var(--radius);
+        padding: 32px;
+        position: relative;
+        transition: box-shadow 0.3s;
+      }
+      .pain-card:hover {
+        box-shadow: 0 4px 20px var(--shadow);
+      }
+      .pain-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: var(--radius);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        font-size: 20px;
+      }
+      .pain-card:nth-child(1) .pain-icon {
+        background: var(--red-wash);
+      }
+      .pain-card:nth-child(2) .pain-icon {
+        background: var(--warm-wash);
+      }
+      .pain-card:nth-child(3) .pain-icon {
+        background: var(--red-wash);
+      }
+      .pain-card h3 {
+        font-size: 17px;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+      .pain-card p {
+        font-size: 15px;
+        color: var(--mid);
+        line-height: 1.6;
+      }
+
+      /* ── Transition statement ────────── */
+      .pivot {
+        padding: 60px 0 80px;
+        text-align: center;
+      }
+      .pivot-line {
+        width: 40px;
+        height: 2px;
+        background: var(--accent);
+        margin: 0 auto 32px;
+      }
+      .pivot p {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(22px, 3vw, 32px);
+        font-weight: 400;
+        line-height: 1.35;
+        max-width: 660px;
+        margin: 0 auto;
+        color: var(--ink);
+      }
+      .pivot p em {
+        color: var(--accent);
+        font-style: italic;
+      }
+
+      /* ── Features walkthrough ────────── */
+      .features {
+        padding: 40px 0 100px;
+      }
+      .feature-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 64px;
+        align-items: center;
+        margin-bottom: 80px;
+      }
+      .feature-row:last-child {
+        margin-bottom: 0;
+      }
+      .feature-row.reverse .feature-text {
+        order: 2;
+      }
+      .feature-row.reverse .feature-visual {
+        order: 1;
+      }
+
+      .feature-number {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        color: var(--accent);
+        letter-spacing: 1px;
+        margin-bottom: 12px;
+      }
+      .feature-text h3 {
+        font-family: "DM Serif Display", serif;
+        font-size: 28px;
+        font-weight: 400;
+        line-height: 1.25;
+        margin-bottom: 16px;
+      }
+      .feature-text p {
+        color: var(--mid);
+        font-size: 16px;
+        line-height: 1.7;
+      }
+
+      .feature-pair {
+        display: flex;
+        gap: 2rem;
+        align-items: flex-start;
+      }
+
+      .feature-pair .feature-row {
+        flex: 1;
+      }
+
+      .feature-visual {
+        background: var(--card);
+        border: 1px solid var(--rule);
+        border-radius: 10px;
+        aspect-ratio: 4 / 3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+      }
+      .feature-placeholder {
+        color: var(--rule);
+        font-size: 13px;
+        font-family: "JetBrains Mono", monospace;
+        text-align: center;
+      }
+
+      /* ── Audience strip ──────────────── */
+      .audience {
+        padding: 80px 0;
+        border-top: 1px solid var(--rule);
+        border-bottom: 1px solid var(--rule);
+      }
+      .audience h2 {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(26px, 3vw, 36px);
+        font-weight: 400;
+        text-align: center;
+        margin-bottom: 48px;
+      }
+      .audience-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+        text-align: center;
+      }
+      .audience-item {
+        padding: 24px 16px;
+      }
+      .audience-icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: var(--accent-wash);
+        margin: 0 auto 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+      }
+      .audience-item h4 {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+      .audience-item p {
+        font-size: 14px;
+        color: var(--mid);
+        line-height: 1.6;
+      }
+
+      /* ── CTA ─────────────────────────── */
+      .cta-section {
+        padding: 100px 0;
+        text-align: center;
+      }
+      .cta-section h2 {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(28px, 4vw, 44px);
+        font-weight: 400;
+        line-height: 1.2;
+        margin-bottom: 20px;
+      }
+      .cta-section p {
+        color: var(--mid);
+        font-size: 17px;
+        max-width: 480px;
+        margin: 0 auto 36px;
+      }
+      .cta-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--accent);
+        color: #fff;
+        padding: 16px 40px;
+        border-radius: var(--radius);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 16px;
+        transition:
+          background 0.25s,
+          transform 0.2s;
+      }
+      .cta-btn:hover {
+        background: var(--accent-light);
+        transform: translateY(-1px);
+      }
+
+      .it-section {
+        padding: 100px 0;
+        text-align: center;
+      }
+      .it-section h2 {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(28px, 4vw, 44px);
+        font-weight: 400;
+        line-height: 1.2;
+        margin-bottom: 20px;
+      }
+      .it-section p {
+        color: var(--mid);
+        font-size: 17px;
+        max-width: 480px;
+        margin: 0 auto 36px;
+      }
+      .it-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--accent);
+        color: #fff;
+        padding: 16px 40px;
+        border-radius: var(--radius);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 16px;
+        transition:
+          background 0.25s,
+          transform 0.2s;
+      }
+      .it-btn:hover {
+        background: var(--accent-light);
+        transform: translateY(-1px);
+      }
+
+      /* ── Footer ──────────────────────── */
+      footer {
+        border-top: 1px solid var(--rule);
+        padding: 40px 0;
+      }
+      .footer-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .footer-links {
+        display: flex;
+        gap: 24px;
+        align-items: center;
+      }
+      footer p {
+        font-size: 13px;
+        color: var(--mid);
+      }
+      footer a {
+        color: var(--mid);
+        text-decoration: none;
+        font-size: 13px;
+      }
+      footer a:hover {
+        color: var(--ink);
+      }
+
+      /* ── For-IT expander ─────────────── */
+      /* Collapsed by default; .open animates it to full height via the
+         grid-template-rows 0fr→1fr trick (works with unknown content height). */
+      .forit-panel {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.35s ease;
+      }
+      .forit-panel.open {
+        grid-template-rows: 1fr;
+      }
+      .forit-inner {
+        overflow: hidden;
+        min-height: 0;
+      }
+      .forit-card {
+        margin-top: 28px;
+        background: var(--card);
+        border: 1px solid var(--rule);
+        border-radius: var(--radius);
+        padding: 28px;
+        position: relative;
+      }
+      .forit-copy {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-family: "DM Sans", sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        padding: 7px 14px;
+        border-radius: var(--radius);
+        transition: background 0.2s;
+      }
+      .forit-copy:hover {
+        background: var(--accent-light);
+      }
+      /* The copy-able message. Style headings, paragraphs and lists here so
+         the text both looks good on-page and pastes nicely into an email. */
+      .forit-body {
+        font-size: 15px;
+        color: var(--ink);
+        line-height: 1.7;
+        max-width: 680px;
+      }
+      .forit-body h4 {
+        font-family: "DM Serif Display", serif;
+        font-size: 22px;
+        font-weight: 400;
+        margin-bottom: 14px;
+      }
+      .forit-body h5 {
+        font-size: 14px;
+        font-weight: 600;
+        margin: 20px 0 6px;
+      }
+      .forit-body p {
+        margin-bottom: 12px;
+      }
+      .forit-body ul {
+        margin: 0 0 12px 20px;
+      }
+      .forit-body li {
+        margin-bottom: 6px;
+      }
+      .forit-body a {
+        color: var(--accent);
+        font-size: inherit;
+        text-decoration: underline;
+      }
+
+      /* ── Animations ──────────────────── */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ── Scroll reveal ───────────────── */
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ── Responsive ──────────────────── */
+      @media (max-width: 768px) {
+        nav ul {
+          display: none;
+        }
+        .feature-row {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+        .feature-row.reverse .feature-text {
+          order: 1;
+        }
+        .feature-row.reverse .feature-visual {
+          order: 2;
+        }
+        .audience-grid {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+        .footer-row {
+          flex-direction: column;
+          gap: 12px;
+          text-align: center;
+        }
+      }
+
+      /* ── Contact modal ───────────────── */
+      /* Full-screen dimmed backdrop. Hidden by default; JS adds .open to show it. */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 200; /* above nav (100) */
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: rgba(26, 26, 46, 0.55);
+        backdrop-filter: blur(4px);
+      }
+      .modal-overlay.open {
+        display: flex;
+      }
+      .modal-card {
+        background: var(--card);
+        border-radius: 10px;
+        box-shadow: 0 20px 60px rgba(26, 26, 46, 0.25);
+        width: 100%;
+        max-width: 440px;
+        max-height: 90vh;
+        overflow-y: auto;
+        padding: 32px;
+        position: relative;
+      }
+      .modal-card h3 {
+        font-family: "DM Serif Display", serif;
+        font-size: 26px;
+        font-weight: 400;
+        margin-bottom: 6px;
+      }
+      .modal-card .modal-sub {
+        font-size: 14px;
+        color: var(--mid);
+        margin-bottom: 24px;
+      }
+      .modal-close {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 32px;
+        height: 32px;
+        border: none;
+        background: transparent;
+        color: var(--mid);
+        font-size: 24px;
+        line-height: 1;
+        cursor: pointer;
+        border-radius: var(--radius);
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+      .modal-close:hover {
+        background: var(--paper);
+        color: var(--ink);
+      }
+
+      /* Each field is a self-contained block — copy/paste to add another. */
+      .form-field {
+        margin-bottom: 16px;
+      }
+      .form-field label {
+        display: block;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--ink);
+        margin-bottom: 6px;
+      }
+      .form-field input,
+      .form-field textarea {
+        width: 100%;
+        font-family: "DM Sans", sans-serif;
+        font-size: 15px;
+        color: var(--ink);
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        border-radius: var(--radius);
+        padding: 10px 12px;
+        transition: border-color 0.2s;
+      }
+      .form-field input:focus,
+      .form-field textarea:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+      .form-field textarea {
+        resize: vertical;
+      }
+      /* Constrain short inputs (e.g. a count) so they don't span the full card. */
+      .form-field.narrow input {
+        max-width: 120px;
+      }
+      .modal-card .cta-btn {
+        width: 100%;
+        justify-content: center;
+        border: none;
+        cursor: pointer;
+        font-family: "DM Sans", sans-serif;
+        margin-top: 4px;
+      }
+      #contact-status {
+        font-size: 14px;
+        margin-top: 14px;
+        text-align: center;
+        min-height: 1.2em;
+      }
+      #contact-status.success {
+        color: var(--accent);
+      }
+      #contact-status.error {
+        color: var(--red);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ── Nav ─────────────────────────── -->
+    <nav>
+      <div class="container">
+        <a href="#" class="logo">term<span>point</span></a>
+        <ul>
+          <li><a href="#problem">The Problem</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#who">Who It's For</a></li>
+          <li><a href="#cta">Join Early Access Program</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- ── Hero ────────────────────────── -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-overline">Local timetabling for university departments</div>
+        <h1>Complex Schedule?<br /><em>Clarify your view</em></h1>
+        <p class="hero-sub">
+          TermPoint gives schedulers a workspace that replaces tangled spreadsheets with views that stay in sync. See
+          just the information you need, without visual clutter. Edit once, confident that everything is kept up-to-date
+          and error-free.
+        </p>
+
+        <p class="hero-sub">
+          Designed for department-level scheduling, it puts powerful visualization tools directly in the hands of the
+          people closest to the schedule. You still make the decisions, TermPoint just makes them easier.
+        </p>
+
+        <!-- Screenshot frame — drop in a real screenshot later -->
+        <div class="screenshot-frame">
+          <div class="screenshot-titlebar">
+            <div class="screenshot-dot"></div>
+            <div class="screenshot-dot"></div>
+            <div class="screenshot-dot"></div>
+            <span class="screenshot-titlebar-text">TermPoint — Fall 2025 Schedule</span>
+          </div>
+
+          <div class="screenshot-body" id="slideshow">
+            <div class="slideshow-progress" id="slideshow-progress"></div>
+            
+            <!-- Slide 0 -->
+            <div class="slide active" data-caption="TermPoint Full View">
+              <div class="slide-inner">
+                <img src="WebSite/Slide0intro.png" alt="Full timetable view" />
+              </div>
+            </div>
+            
+            
+            
+            <!-- Slide 1 -->
+            <div class="slide" data-caption="TermPoint Full View">
+              <div class="slide-inner">
+                <img src="WebSite/slide1intro.png" alt="Full timetable view" />
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="slide" data-caption="Filtering">
+              <div class="slide-inner">
+                <img src="WebSite/slide2filter.png" alt="Full timetable view" />
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="slide" data-caption="Filter by level">
+              <div class="slide-inner">
+                <img src="WebSite/slide3filterlevel.png" alt="Full timetable view" />
+              </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="slide" data-caption="Filter by tag">
+              <div class="slide-inner">
+                <img src="WebSite/slide4filtertag.png" alt="Full timetable view" />
+              </div>
+            </div>
+
+            <!-- Slide 5 -->
+            <div class="slide" data-caption="Filter by instructor">
+              <div class="slide-inner">
+                <img src="WebSite/slide5introinstructor.png" alt="Full timetable view" />
+              </div>
+            </div>
+
+            <!-- Slide 6 -->
+            <div class="slide" data-caption="Workload Assignment">
+              <div class="slide-inner">
+                <img src="WebSite/workload1.png" alt="Full timetable view" />
+              </div>
+            </div>
+
+           
+
+            <!-- Slide 8 -->
+            <div class="slide" data-caption="Workload Assignment">
+              <div class="slide-inner">
+                <img src="WebSite/workload2.png" alt="Full timetable view" />
+              </div>
+            </div>
+
+            <!-- Slide 9 -->
+            <div class="slide" data-caption="Instructor Flyout">
+              <div class="slide-inner">
+                <img src="WebSite/instructorflyout.png" alt="Full timetable view" />
+              </div>
+            </div>
+
+            <!-- Slide 10 -->
+            <div class="slide" data-caption="Room fill tool">
+              <div class="slide-inner">
+                <img src="WebSite/roomfill.png" alt="Full timetable view" />
+              </div>
+            </div>
+
+            <!-- Slide 11 -->
+            <div class="slide" data-caption="Other tools">
+              <div class="slide-inner">
+                <img src="WebSite/othertools.png" alt="Full timetable view" />
+              </div>
+            </div>
+            
+            <!-- Slide 12 -->
+            <div class="slide" data-caption="configure">
+              <div class="slide-inner">
+                <img src="WebSite/configure.png" alt="Full timetable view" />
+              </div>
+            </div>
+            
+            <!-- Slide 13 -->
+            <div class="slide" data-caption="Easy installation">
+              <div class="slide-inner">
+                <img src="WebSite/desktop.png" alt="Full timetable view" />
+              </div>
+            </div>
+            
+             <!-- Slide 14 -->
+            <div class="slide" data-caption="Final">
+              <div class="slide-inner">
+                <img src="WebSite/final.png" alt="Final" />
+              </div>
+            </div>
+
+            <!-- Caption overlay -->
+            <div class="slide-caption" id="slide-caption">
+              <span class="slide-caption-number" id="slide-counter">1 / 7</span>
+              <span id="slide-caption-text">The full timetable grid — every section, every day, one view.</span>
+            </div>
+
+            <!-- Navigation -->
+            <div class="slideshow-controls">
+              <div class="slideshow-dots" id="slideshow-dots"></div>
+              <button class="slideshow-arrow" id="prev-btn" aria-label="Previous slide">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M10 3L5 8l5 5" />
+                </svg>
+              </button>
+              <button class="slideshow-arrow" id="next-btn" aria-label="Next slide">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M6 3l5 5-5 5" />
+                </svg>
+              </button>
+              <button class="slideshow-arrow" id="play-pause-btn" aria-label="Pause slideshow">
+                <svg viewBox="0 0 16 16" fill="currentColor">
+                  <rect x="4" y="3" width="3" height="10" />
+                  <rect x="9" y="3" width="3" height="10" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-cta-row">
+        <a href="#cta" class="hero-cta">
+          Try an online demo (runs in your browser, no installation needed)
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 8h10M9 4l4 4-4 4" />
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ── Problem ────────────────────── -->
+    <section class="problem" id="problem">
+      <div class="container">
+        <div class="section-overline reveal">The Problem</div>
+        <h2 class="reveal">Spreadsheets were never built for scheduling.</h2>
+
+        <div class="pain-cards">
+          <div class="pain-card reveal">
+            <div class="pain-icon">📋</div>
+            <h3>One sheet, total overload</h3>
+            <p>
+              Cram every section onto a single sheet and it becomes a wall of data. Finding what you need means
+              scrolling, squinting, and hoping you don't miss a conflict.
+            </p>
+          </div>
+          <div class="pain-card reveal">
+            <div class="pain-icon">🔀</div>
+            <h3>Many sheets, no coordination</h3>
+            <p>
+              Split by instructor or program and things look cleaner — until you change a room in one tab and forget to
+              update two others. Sheets don't talk to each other readily.
+            </p>
+          </div>
+          <div class="pain-card reveal">
+            <div class="pain-icon">⚠️</div>
+            <h3>Errors you find too late</h3>
+            <p>
+              Double-booked rooms, overloaded instructors, time-slot collisions — in a spreadsheet, these stay invisible
+              until someone complains or the registrar catches them. Then it's an afternoon of panicked emails...
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Pivot ──────────────────────── -->
+    <section class="pivot">
+      <div class="container">
+        <div class="pivot-line reveal"></div>
+        <p class="reveal">
+          
+          Spreadsheets work for small departments (until they don't.) On the other hand, large centralized timetabling systems provide powerful tools, but not ones designed
+          to support you in decision making. TermPoint fills the gap.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── Features ───────────────────── -->
+    <section class="features" id="features">
+      <div class="container">
+        <div class="section-overline reveal">How TermPoint Works</div>
+        <div class="feature-pair">
+          <div class="feature-row reveal">
+            <div class="feature-text">
+              <div class="feature-number">01</div>
+              <h3>Filter to what matters right now</h3>
+              <p>
+                View your schedule by instructor, by room, by day, by program — or any combination. TermPoint shows you
+                exactly the slice you need and hides the clutter. Switch views instantly without losing context.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-row reveal">
+            <div class="feature-text">
+              <div class="feature-number">02</div>
+              <h3>One change, every view updated</h3>
+              <p>
+                Move a section to a different time and the room view, instructor view, program view all update together.
+                No cross-referencing tabs. No copy-paste errors. One source of truth.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-row reveal">
+          <div class="feature-text">
+            <div class="feature-number">03</div>
+            <h3>Conflicts surface, not hide</h3>
+            <p>
+              Room collisions, instructor overlaps, and workload imbalances are flagged the moment they happen — not
+              after the schedule goes to the registrar. Problems are visible, not buried in a cell somewhere.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Audience ───────────────────── -->
+    <section class="audience" id="who">
+      <div class="container">
+        <h2 class="reveal">Built for the people who actually build the schedule</h2>
+        <div class="audience-grid">
+          <div class="audience-item reveal">
+            <div class="audience-icon">🏫</div>
+            <h4>Department Chairs</h4>
+            <p>
+              See your whole term at a glance. Balance workloads, honour preferences, and hand off a clean schedule to
+              central.
+            </p>
+          </div>
+          <div class="audience-item reveal">
+            <div class="audience-icon">📅</div>
+            <h4>Departmental Schedulers</h4>
+            <p>
+              Stop maintaining parallel spreadsheets. TermPoint keeps rooms, instructors, and time slots coordinated in
+              one place.
+            </p>
+          </div>
+          <div class="audience-item reveal">
+            <div class="audience-icon">🎓</div>
+            <h4>Program Coordinators</h4>
+            <p>
+              Filter to your program's courses and see exactly how they fit into the department picture without wading
+              through the whole grid.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── IT ─────────────────────────── -->
+    <section class="it-section" id="it">
+      <div class="container">
+        <h2 class="reveal">IT if necessary, but not necessarily IT</h2>
+        <p class="reveal">
+          TermPoint runs on your desktop, and works with your existing workflow — no centralized database or IT projects
+          required. Installation happens just like any desktop application. (If your institution does not allow users
+          to install software directly, you may need to ask IT to do that for you.)
+        </p>
+      </div>
+    </section>
+
+    <!-- ── CTA ─────────────────────────── -->
+
+    <section class="cta-section" id="cta">
+      <div class="container">
+        <h2 class="reveal">Early-Access Program</h2>
+        <p class="reveal">
+          TermPoint is currently inviting participants to an early-access program. Members receive free access (in perpetuity) while
+          helping us validate real-world scheduling workflows. Contact us using the form below. If you just wish to express interest or
+          have questions, make use of the same form.
+        </p>
+        <a href="#" id="open-contact" class="cta-btn reveal">
+          Contact TermPoint
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M8 2v9M4 8l4 4 4-4M3 14h10" />
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ── Contact modal ──────────────── -->
+    <!--
+      How sending works: this page is static (no server), so it cannot email on its own.
+      The form POSTs to Web3Forms (https://web3forms.com), a free relay that forwards each
+      submission to your inbox. SETUP: enter your email at web3forms.com, copy the access key
+      they send you, and paste it into the hidden "access_key" input below.
+
+      To switch to Formspree instead: add action="https://formspree.io/f/your-id" method="POST"
+      to the <form>, remove the Web3Forms hidden inputs, and delete the fetch() call in the JS
+      (let the form submit normally).
+    -->
+    <div class="modal-overlay" id="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-title">
+      <div class="modal-card">
+        <button class="modal-close" id="close-contact" aria-label="Close">&times;</button>
+        <h3 id="contact-title">Contact TermPoint</h3>
+        <p class="modal-sub">Tell us a little about you and we'll be in touch about the early-access program. If 
+        you just have questions, we're happy to answer them.</p>
+
+        <form id="contact-form">
+          <!-- ── Editable config: paste your Web3Forms access key here ── -->
+          <input type="hidden" name="access_key" value="69f8c2f1-c65e-4ba6-835d-1b2ee304641e" />
+          <input type="hidden" name="subject" value="New TermPoint early-access inquiry" />
+          <input type="hidden" name="from_name" value="TermPoint Landing Page" />
+          <!-- Honeypot: hidden from people, bots fill it and get rejected -->
+          <input type="checkbox" name="botcheck" style="display: none" tabindex="-1" autocomplete="off" />
+
+          <!-- ── Fields: each block is independent; copy one to add a field ── -->
+          <div class="form-field">
+            <label for="cf-name">Name</label>
+            <input type="text" id="cf-name" name="name" required />
+          </div>
+
+          <div class="form-field">
+            <label for="cf-email">Email</label>
+            <input type="email" id="cf-email" name="email" required />
+          </div>
+
+          <div class="form-field">
+            <label for="cf-institution">Academic Institution and Department</label>
+            <input type="text" id="cf-institution" name="institution" />
+          </div>
+
+          <p class="field-heading">Please describe your scheduling environment</p>
+          
+          <!-- more fields… -->
+
+          <div class="form-field narrow">
+            <label for="cf-sections">About how many sections do you schedule each semester?</label>
+            <input type="number" id="cf-sections" name="sections_per_semester" min="0" required />
+          </div>
+          
+          <div class="form-field">
+            <label for="cf-message2">What system do you use for scheduling now? (Spreadsheets? An application? A centralized timetabling system?) Please describe.</label>
+            <textarea id="cf-message2" name="current_system" rows="4" required></textarea>
+          </div>
+          
+          <div class="form-field">
+            <label for="cf-message3">How does your schedule get passed to the registrar? (Manual entry in a centralized system? Submission of your spreadsheet?) </label>
+            <textarea id="cf-message3" name="registrar_process" rows="4" required></textarea>
+          </div>
+          
+          <div class="form-field">
+            <label for="cf-message4">How did you first hear about TermPoint? </label>
+            <textarea id="cf-message4" name="head-where" rows="4" required></textarea>
+          </div>
+          
+          <div class="form-field">
+            <label for="cf-message5">Do you have any questions? We'll try to respond promptly.</label>
+            <textarea id="cf-message5" name="questions" rows="4" required></textarea>
+          </div>
+
+          <button type="submit" class="cta-btn">Send</button>
+          <p id="contact-status"></p>
+        </form>
+      </div>
+    </div>
+
+    <!-- ── Footer ─────────────────────── -->
+    <footer>
+      <div class="container">
+        <div class="footer-row">
+          <p>&copy; 2026 TermPoint</p>
+          <div class="footer-links">
+           
+            <a href="#" id="open-contact-footer">Contact</a>
+          </div>
+        </div>
+
+        <!--
+          For-IT expander. Clicking "For-IT" reveals this panel. Edit the text inside
+          <div class="forit-body"> — use <h4>/<h5> headings, <p> paragraphs, <ul><li> lists,
+          and <a> links; they're styled to look good here AND to paste cleanly into an email.
+          The Copy button copies the formatted text (rich + plain) to the clipboard.
+        -->
+        
+      </div>
+    </footer>
+
+    <script>
+      // ── Scroll reveal ──────────────────
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              observer.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+      document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+      // ── Hero Slideshow ─────────────────
+      (function () {
+        const slides = document.querySelectorAll(".slide");
+        const captionText = document.getElementById("slide-caption-text");
+        const counter = document.getElementById("slide-counter");
+        const progress = document.getElementById("slideshow-progress");
+        const dotsContainer = document.getElementById("slideshow-dots");
+        const total = slides.length;
+        let current = 0;
+        let autoTimer;
+        const AUTO_DELAY = 10000; // 10 seconds per slide
+
+        // Build dots
+        slides.forEach((_, i) => {
+          const dot = document.createElement("button");
+          dot.className = "slideshow-dot" + (i === 0 ? " active" : "");
+          dot.setAttribute("aria-label", "Go to slide " + (i + 1));
+          dot.addEventListener("click", () => goTo(i));
+          dotsContainer.appendChild(dot);
+        });
+
+        function goTo(index) {
+          slides[current].classList.remove("active");
+          dotsContainer.children[current].classList.remove("active");
+          current = (index + total) % total;
+          slides[current].classList.add("active");
+          dotsContainer.children[current].classList.add("active");
+          captionText.textContent = slides[current].dataset.caption;
+          counter.textContent = current + 1 + " / " + total;
+          updateProgress();
+          resetAuto();
+        }
+
+        function updateProgress() {
+          progress.style.width = ((current + 1) / total) * 100 + "%";
+        }
+
+        function resetAuto() {
+          clearInterval(autoTimer);
+          if (!paused) {
+            autoTimer = setInterval(() => goTo(current + 1), AUTO_DELAY);
+          }
+        }
+
+        let paused = false;
+        const playPauseBtn = document.getElementById("play-pause-btn");
+
+        const playIcon = '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 3l9 5-9 5z"/></svg>';
+        const pauseIcon =
+          '<svg viewBox="0 0 16 16" fill="currentColor"><rect x="4" y="3" width="3" height="10"/><rect x="9" y="3" width="3" height="10"/></svg>';
+
+        playPauseBtn.addEventListener("click", () => {
+          paused = !paused;
+          if (paused) {
+            clearInterval(autoTimer);
+            playPauseBtn.innerHTML = playIcon;
+            playPauseBtn.setAttribute("aria-label", "Play slideshow");
+          } else {
+            resetAuto();
+            playPauseBtn.innerHTML = pauseIcon;
+            playPauseBtn.setAttribute("aria-label", "Pause slideshow");
+          }
+        });
+
+        document.getElementById("prev-btn").addEventListener("click", () => goTo(current - 1));
+        document.getElementById("next-btn").addEventListener("click", () => goTo(current + 1));
+
+        // Keyboard
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "ArrowLeft") goTo(current - 1);
+          if (e.key === "ArrowRight") goTo(current + 1);
+        });
+
+        // Init
+        updateProgress();
+        resetAuto();
+      })();
+
+      // ── Contact modal ──────────────────
+      (function () {
+        const modal = document.getElementById("contact-modal");
+        const form = document.getElementById("contact-form");
+        const status = document.getElementById("contact-status");
+        const openers = [document.getElementById("open-contact"), document.getElementById("open-contact-footer")];
+
+        function open(e) {
+          if (e) e.preventDefault();
+          modal.classList.add("open");
+        }
+        function close() {
+          modal.classList.remove("open");
+        }
+
+        openers.forEach((el) => el && el.addEventListener("click", open));
+        document.getElementById("close-contact").addEventListener("click", close);
+
+        // Close when clicking the dimmed backdrop (but not the card itself)
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) close();
+        });
+        // Close on Escape
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && modal.classList.contains("open")) close();
+        });
+
+        // Submit via fetch so the visitor stays on the page (no redirect)
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          status.className = "";
+          status.textContent = "Sending…";
+
+          try {
+            const response = await fetch("https://api.web3forms.com/submit", {
+              method: "POST",
+              headers: { Accept: "application/json" },
+              body: new FormData(form)
+            });
+            const data = await response.json();
+
+            if (data.success) {
+              status.className = "success";
+              status.textContent = "Thanks — we'll be in touch.";
+              form.reset();
+              setTimeout(close, 2500);
+            } else {
+              status.className = "error";
+              status.textContent = data.message || "Something went wrong. Please try again.";
+            }
+          } catch (err) {
+            status.className = "error";
+            status.textContent = "Network error. Please try again.";
+          }
+        });
+      })();
+
+      // ── For-IT expander + copy ─────────
+      (function () {
+        const toggle = document.getElementById("open-forit");
+        const panel = document.getElementById("forit-panel");
+        const copyBtn = document.getElementById("forit-copy");
+        const body = document.getElementById("forit-body");
+        const copyLabel = copyBtn.querySelector("span");
+
+        // Open / close the expander
+        toggle.addEventListener("click", (e) => {
+          e.preventDefault();
+          const isOpen = panel.classList.toggle("open");
+          toggle.setAttribute("aria-expanded", isOpen);
+        });
+
+        // Copy the message — rich text (text/html) plus a plain-text fallback,
+        // so it pastes with formatting into Gmail/Outlook but still works anywhere.
+        copyBtn.addEventListener("click", async () => {
+          const html = body.innerHTML;
+          const text = body.innerText;
+
+          function flash(msg) {
+            copyLabel.textContent = msg;
+            setTimeout(() => (copyLabel.textContent = "Copy"), 1800);
+          }
+
+          try {
+            await navigator.clipboard.write([
+              new ClipboardItem({
+                "text/html": new Blob([html], { type: "text/html" }),
+                "text/plain": new Blob([text], { type: "text/plain" })
+              })
+            ]);
+            flash("Copied!");
+          } catch (err) {
+            // Fallback: select the DOM range and use execCommand (older browsers)
+            try {
+              const range = document.createRange();
+              range.selectNodeContents(body);
+              const sel = window.getSelection();
+              sel.removeAllRanges();
+              sel.addRange(range);
+              document.execCommand("copy");
+              sel.removeAllRanges();
+              flash("Copied!");
+            } catch (e2) {
+              flash("Copy failed");
+            }
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
