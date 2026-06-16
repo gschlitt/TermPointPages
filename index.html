@@ -1232,7 +1232,7 @@
           have questions, make use of the same form.
         </p>
         <a href="#" id="open-contact" class="cta-btn reveal">
-          Contact TermPoint
+          Early Access
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M8 2v9M4 8l4 4 4-4M3 14h10" />
           </svg>
@@ -1317,24 +1317,96 @@
       </div>
     </div>
 
+    <!-- ── Simple contact modal ─────────── -->
+    <div class="modal-overlay" id="simple-contact-modal" role="dialog" aria-modal="true" aria-labelledby="simple-contact-title">
+      <div class="modal-card">
+        <button class="modal-close" id="close-simple-contact" aria-label="Close">&times;</button>
+        <h3 id="simple-contact-title">Contact Us</h3>
+        <p class="modal-sub">Have a question or comment? We'd love to hear from you.</p>
+
+        <form id="simple-contact-form">
+          <input type="hidden" name="access_key" value="69f8c2f1-c65e-4ba6-835d-1b2ee304641e" />
+          <input type="hidden" name="subject" value="TermPoint general inquiry" />
+          <input type="hidden" name="from_name" value="TermPoint Landing Page" />
+          <input type="checkbox" name="botcheck" style="display: none" tabindex="-1" autocomplete="off" />
+
+          <div class="form-field">
+            <label for="sc-name">Name</label>
+            <input type="text" id="sc-name" name="name" required />
+          </div>
+
+          <div class="form-field">
+            <label for="sc-email">Email</label>
+            <input type="email" id="sc-email" name="email" required />
+          </div>
+
+          <div class="form-field">
+            <label for="sc-institution">Academic Institution</label>
+            <input type="text" id="sc-institution" name="institution" />
+          </div>
+
+          <div class="form-field">
+            <label for="sc-department">Department</label>
+            <input type="text" id="sc-department" name="department" />
+          </div>
+
+          <div class="form-field">
+            <label for="sc-message">Questions / Comments</label>
+            <textarea id="sc-message" name="message" rows="5" required></textarea>
+          </div>
+
+          <button type="submit" class="cta-btn">Send</button>
+          <p id="simple-contact-status"></p>
+        </form>
+      </div>
+    </div>
+
     <!-- ── Footer ─────────────────────── -->
     <footer>
       <div class="container">
         <div class="footer-row">
           <p>&copy; 2026 TermPoint</p>
           <div class="footer-links">
-           
-            <a href="#" id="open-contact-footer">Contact</a>
+            <a href="#" id="open-sysreq">System Requirements</a>
+            <a href="#" id="open-simple-contact">Contact</a>
           </div>
         </div>
 
-        <!--
-          For-IT expander. Clicking "For-IT" reveals this panel. Edit the text inside
-          <div class="forit-body"> — use <h4>/<h5> headings, <p> paragraphs, <ul><li> lists,
-          and <a> links; they're styled to look good here AND to paste cleanly into an email.
-          The Copy button copies the formatted text (rich + plain) to the clipboard.
-        -->
-        
+        <!-- System Requirements expander -->
+        <div class="forit-panel" id="sysreq-panel">
+          <div class="forit-inner">
+            <div class="forit-card">
+              <div class="forit-body" id="sysreq-body">
+                <h4>System Requirements</h4>
+
+                <h5>Windows</h5>
+                <ul>
+                  <li>Windows 10 or later (64-bit)</li>
+                  <li>4 GB RAM</li>
+                  <li>100 MB disk space (plus space for your schedule database)</li>
+                  <li>1280 &times; 720 minimum display resolution</li>
+                </ul>
+
+                <h5>macOS</h5>
+                <p>Coming soon.</p>
+
+                <h5>Installation</h5>
+                <p>
+                  TermPoint is a self-contained desktop application &mdash; no .NET runtime,
+                  database server, or other infrastructure is required.
+                  Just download, run, and start scheduling.
+                </p>
+
+                <h5>Network / Shared Use (optional)</h5>
+                <p>
+                  For teams that share a schedule, TermPoint can read and write a single database
+                  file on a shared network folder. No special server software is needed &mdash;
+                  standard Windows file-sharing permissions are sufficient.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </footer>
 
@@ -1436,7 +1508,7 @@
         const modal = document.getElementById("contact-modal");
         const form = document.getElementById("contact-form");
         const status = document.getElementById("contact-status");
-        const openers = [document.getElementById("open-contact"), document.getElementById("open-contact-footer")];
+        const openers = [document.getElementById("open-contact")];
 
         function open(e) {
           if (e) e.preventDefault();
@@ -1488,54 +1560,70 @@
         });
       })();
 
-      // ── For-IT expander + copy ─────────
+      // ── Simple contact modal ─────────────
       (function () {
-        const toggle = document.getElementById("open-forit");
-        const panel = document.getElementById("forit-panel");
-        const copyBtn = document.getElementById("forit-copy");
-        const body = document.getElementById("forit-body");
-        const copyLabel = copyBtn.querySelector("span");
+        const modal = document.getElementById("simple-contact-modal");
+        const form = document.getElementById("simple-contact-form");
+        const status = document.getElementById("simple-contact-status");
+        const opener = document.getElementById("open-simple-contact");
 
-        // Open / close the expander
+        function open(e) {
+          if (e) e.preventDefault();
+          modal.classList.add("open");
+        }
+        function close() {
+          modal.classList.remove("open");
+        }
+
+        opener.addEventListener("click", open);
+        document.getElementById("close-simple-contact").addEventListener("click", close);
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) close();
+        });
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && modal.classList.contains("open")) close();
+        });
+
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          status.className = "";
+          status.textContent = "Sending…";
+
+          try {
+            const response = await fetch("https://api.web3forms.com/submit", {
+              method: "POST",
+              headers: { Accept: "application/json" },
+              body: new FormData(form)
+            });
+            const data = await response.json();
+
+            if (data.success) {
+              status.className = "success";
+              status.textContent = "Thanks — we'll be in touch.";
+              form.reset();
+              setTimeout(close, 2500);
+            } else {
+              status.className = "error";
+              status.textContent = data.message || "Something went wrong. Please try again.";
+            }
+          } catch (err) {
+            status.className = "error";
+            status.textContent = "Network error. Please try again.";
+          }
+        });
+      })();
+
+      // ── System Requirements expander ────
+      (function () {
+        const toggle = document.getElementById("open-sysreq");
+        const panel = document.getElementById("sysreq-panel");
+
         toggle.addEventListener("click", (e) => {
           e.preventDefault();
           const isOpen = panel.classList.toggle("open");
           toggle.setAttribute("aria-expanded", isOpen);
-        });
-
-        // Copy the message — rich text (text/html) plus a plain-text fallback,
-        // so it pastes with formatting into Gmail/Outlook but still works anywhere.
-        copyBtn.addEventListener("click", async () => {
-          const html = body.innerHTML;
-          const text = body.innerText;
-
-          function flash(msg) {
-            copyLabel.textContent = msg;
-            setTimeout(() => (copyLabel.textContent = "Copy"), 1800);
-          }
-
-          try {
-            await navigator.clipboard.write([
-              new ClipboardItem({
-                "text/html": new Blob([html], { type: "text/html" }),
-                "text/plain": new Blob([text], { type: "text/plain" })
-              })
-            ]);
-            flash("Copied!");
-          } catch (err) {
-            // Fallback: select the DOM range and use execCommand (older browsers)
-            try {
-              const range = document.createRange();
-              range.selectNodeContents(body);
-              const sel = window.getSelection();
-              sel.removeAllRanges();
-              sel.addRange(range);
-              document.execCommand("copy");
-              sel.removeAllRanges();
-              flash("Copied!");
-            } catch (e2) {
-              flash("Copy failed");
-            }
+          if (isOpen) {
+            panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
           }
         });
       })();
