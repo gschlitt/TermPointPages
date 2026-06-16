@@ -913,7 +913,7 @@
         <a href="#" class="logo">term<span>point</span></a>
         <ul>
           <li><a href="#problem">The Problem</a></li>
-          <li><a href="#features">Features</a></li>
+          <li><a href="#features">What TermPoint Is</a></li>
           <li><a href="#who">Who It's For</a></li>
           <li><a href="#cta">Access TermPoint</a></li>
         </ul>
@@ -1129,7 +1129,6 @@
     <!-- ── Pivot ──────────────────────── -->
     <section class="pivot">
       <div class="container">
-        <div class="pivot-line reveal"></div>
         <p class="reveal">
           
           Spreadsheets work for small departments (until they don't.) On the other hand, large centralized timetabling systems are not designed
@@ -1141,7 +1140,13 @@
     <!-- ── Features ───────────────────── -->
     <section class="features" id="features">
       <div class="container">
-        <div class="section-overline reveal">How TermPoint Works</div>
+        <div class="section-overline reveal">What TermPoint Is</div>
+        <p class="reveal" style="color: var(--mid); font-size: 17px; line-height: 1.7; max-width: 720px; margin-bottom: 48px;">
+          TermPoint is not a large centralized timetabling system, in which the clients enter constraints, and
+          accept the schedule the system designs. TermPoint assumes <em>you</em> will make the best decisions about
+          your schedule, if you can see it clearly. It is a (relatively) low-tech visualization and
+          record-keeping tool, built with end-users in mind.
+        </p>
         <div class="feature-pair">
           <div class="feature-row reveal">
             <div class="feature-text">
@@ -1174,6 +1179,32 @@
               Room collisions, instructor overlaps, and workload imbalances are flagged the moment they happen — not
               after the schedule goes to the registrar. Problems are visible, not buried in a cell somewhere.
             </p>
+          </div>
+        </div>
+
+        <!-- Additional Features expander -->
+        <div class="reveal" style="margin-top: 48px; text-align: center;">
+          <a href="#" id="open-addl-features" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--accent); text-decoration: none; letter-spacing: 0.5px; font-weight: 500; transition: color 0.2s;" aria-expanded="false">
+            Additional Features ▸
+          </a>
+        </div>
+        <div class="forit-panel" id="addl-features-panel">
+          <div class="forit-inner">
+            <div class="forit-card">
+              <div class="forit-body">
+                <ul>
+                  <li>Easily share views of your schedules with other departments</li>
+                  <li>Automates workload mailouts to instructors</li>
+                  <li>Builds and maintains an instructor workload history</li>
+                  <li>Builds and maintains a course history</li>
+                  <li>Automates the creation of external reports on workload and course histories</li>
+                  <li>Allows tracking of reserves and releases</li>
+                  <li>A room fill tool and a room finder tool make rooming easier and less error-prone</li>
+                  <li>Supports multiple users (with one author and unlimited readers at any given time)</li>
+                  <li>Installs on desktops, with minimal or no need for IT support</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1612,6 +1643,22 @@
           } catch (err) {
             status.className = "error";
             status.textContent = "Network error. Please try again.";
+          }
+        });
+      })();
+
+      // ── Additional Features expander ──────
+      (function () {
+        const toggle = document.getElementById("open-addl-features");
+        const panel = document.getElementById("addl-features-panel");
+
+        toggle.addEventListener("click", (e) => {
+          e.preventDefault();
+          const isOpen = panel.classList.toggle("open");
+          toggle.setAttribute("aria-expanded", isOpen);
+          toggle.textContent = isOpen ? "Additional Features ▾" : "Additional Features ▸";
+          if (isOpen) {
+            panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
           }
         });
       })();
