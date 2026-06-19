@@ -116,7 +116,13 @@
         opacity: 0;
         animation: fadeUp 0.8s 0.2s forwards;
       }
-      .hero h1 {
+      .hero h1.hero-overline {
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.4;
+        margin-bottom: 20px;
+      }
+      .hero-headline {
         font-family: "DM Serif Display", serif;
         font-size: clamp(36px, 5.5vw, 64px);
         line-height: 1.1;
@@ -126,7 +132,7 @@
         opacity: 0;
         animation: fadeUp 0.8s 0.4s forwards;
       }
-      .hero h1 em {
+      .hero-headline em {
         font-style: italic;
         color: var(--accent);
       }
@@ -904,6 +910,38 @@
       #contact-status.error {
         color: var(--red);
       }
+    <link rel="canonical" href="https://www.termpoint.ca/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.termpoint.ca/" />
+    <meta property="og:title" content="TermPoint — Local Timetabling for University Departments" />
+    <meta property="og:description" content="Desktop course-timetabling for university departments. No IT, no accounts, no cloud — install and schedule." />
+    <meta property="og:image" content="https://www.termpoint.ca/slide0intro.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="TermPoint — Local Timetabling for University Departments" />
+    <meta name="twitter:description" content="Desktop course-timetabling for university departments. No IT, no accounts, no cloud." />
+    <meta name="twitter:image" content="https://www.termpoint.ca/slide0intro.png" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "TermPoint",
+      "applicationCategory": "BusinessApplication",
+      "applicationSubCategory": "Course Timetabling / Academic Scheduling",
+      "operatingSystem": "Windows 10 or later (64-bit)",
+      "description": "TermPoint is a desktop course-timetabling application for university and college departments. It runs locally with no IT infrastructure, no accounts, and no cloud \u2014 install it like any desktop app and schedule.",
+      "url": "https://www.termpoint.ca/",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Free early-access program"
+      },
+      "publisher": { "@type": "Organization", "name": "TermPoint" }
+    }
+    </script>
     </style>
   </head>
   <body>
@@ -923,8 +961,8 @@
     <!-- ── Hero ────────────────────────── -->
     <section class="hero">
       <div class="container">
-        <div class="hero-overline">Local timetabling for university departments</div>
-        <h1>See clearly, schedule confidently<br /></h1>
+        <h1 class="hero-overline">Local timetabling software for university departments</h1>
+        <p class="hero-headline">See clearly, schedule confidently</p>
         <p class="hero-sub">
           TermPoint gives schedulers a workspace that replaces tangled spreadsheets with views that stay in sync. See
           just the information you need, without visual clutter. Edit once, confident that everything is kept up-to-date
@@ -1147,10 +1185,10 @@
       <div class="container">
         <div class="section-overline reveal">What TermPoint Is</div>
         <p class="reveal" style="color: var(--mid); font-size: 17px; line-height: 1.7; max-width: 720px; margin-bottom: 48px;">
-          TermPoint is not a large centralized timetabling system, in which the clients enter constraints, and
-          accept the schedule the system designs. TermPoint assumes <em>you</em> will make the best decisions about
-          your schedule, if only you could see it clearly. It is a (relatively) low-tech visualization and
-          record-keeping tool, designed with the end-user in mind.
+          TermPoint is a desktop course-timetabling application for university and college departments. It is a visualization and
+          record-keeping tool, designed with the end-user in mind. Unlike large centralized systems, TermPoint assumes <em>you</em> will make the best decisions about
+          your schedule, if only you could see it clearly. It runs locally on the user's desktop without a need for databases, cloud-software and registrar infrastructure.
+          
         </p>
         <div class="feature-pair">
           <div class="feature-row reveal">
