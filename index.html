@@ -754,6 +754,7 @@
         margin: 20px 0 6px;
       }
       .forit-body p {
+        font-size: inherit;
         margin-bottom: 12px;
       }
       .forit-body ul {
@@ -766,6 +767,28 @@
         color: var(--accent);
         font-size: inherit;
         text-decoration: underline;
+      }
+      .forit-body code {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.9em;
+        background: var(--paper);
+        padding: 2px 6px;
+        border-radius: 3px;
+      }
+      .forit-body table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 12px 0;
+        font-size: 14px;
+      }
+      .forit-body th, .forit-body td {
+        text-align: left;
+        padding: 8px 12px;
+        border-bottom: 1px solid var(--rule);
+      }
+      .forit-body th {
+        font-weight: 600;
+        background: var(--paper);
       }
 
       /* ── Animations ──────────────────── */
@@ -1317,7 +1340,8 @@
         <p class="reveal">
           TermPoint runs on your desktop, and works with your existing workflow — no centralized database or IT projects
           required. Installation happens just like any desktop application. If you would like to share timetabling duties with 
-          another person, joint access to a shared drive is all it takes.
+          another person, joint access to a shared drive is all it takes. If you would like your IT department to evaluate TermPoint
+          please see the link <a href="#" class="open-forit">For IT</a> below.
         </p>
       </div>
     </section>
@@ -1473,6 +1497,7 @@
           <p>&copy; 2026 TermPoint</p>
           <div class="footer-links">
             <a href="#" id="open-sysreq">System Requirements</a>
+            <a href="#" id="open-forit">For IT</a>
             <a href="#" id="open-simple-contact">Contact</a>
           </div>
         </div>
@@ -1507,6 +1532,148 @@
                   For teams that share a schedule, TermPoint can read and write a single database
                   file on a shared network folder. No special server software is needed &mdash;
                   standard Windows file-sharing permissions are sufficient.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- For IT expander -->
+        <div class="forit-panel" id="it-info-panel">
+          <div class="forit-inner">
+            <div class="forit-card">
+              <div class="forit-body" id="it-info-body">
+                <h4>For IT</h4>
+
+                <h4>Architecture</h4>
+                <p>
+                  TermPoint is built with <strong>.NET</strong> and <strong>Avalonia UI</strong>,
+                  a cross-platform desktop framework. Schedule data is stored in a
+                  <strong>SQLite</strong> database &mdash; a single file with no server process.
+                  The .NET runtime is bundled with the application, so there is nothing extra to
+                  install or maintain.
+                </p>
+
+                <h4>Privacy Statement</h4>
+                <p><em>Last updated: June 2026</em></p>
+
+                <p>
+                  TermPoint is a course-scheduling visualization tool for university administrators.
+                  It is designed to keep all data local and minimize external communication. This
+                  statement explains what data TermPoint stores, what it sends over the network, and
+                  what it does not do.
+                </p>
+
+                <h5>Data Storage</h5>
+                <p>
+                  All scheduling data (sections, instructors, rooms, semesters, and related entities)
+                  is stored in a <strong>local SQLite database file</strong> on the user&rsquo;s computer or
+                  network drive. TermPoint does not upload scheduling data to any cloud service.
+                </p>
+                <p>
+                  Application preferences (window settings, recent file paths, display options) are
+                  stored in a small JSON file under the application&rsquo;s AppData directory. In MSIX
+                  (Store) installations, Windows virtualizes this path into the package&rsquo;s own
+                  container. This file never leaves the machine.
+                </p>
+
+                <h5>Crash &amp; Error Reporting (BugSnag)</h5>
+                <p>
+                  TermPoint uses <strong>BugSnag</strong> to collect crash and error reports so the developers
+                  can identify and fix problems. When an error occurs, the following information may
+                  be sent to BugSnag&rsquo;s servers:
+                </p>
+                <ul>
+                  <li><strong>Stack trace</strong> &mdash; the sequence of function calls that led to the error</li>
+                  <li><strong>App version</strong> and <strong>release stage</strong> (production or development)</li>
+                  <li><strong>Operating system</strong> name and version</li>
+                  <li><strong>Anonymous install identifier</strong> &mdash; a randomly generated ID stored locally, used to group errors from the same installation. This ID cannot be linked back to any user or institution.</li>
+                  <li><strong>Breadcrumbs</strong> &mdash; a short log of recent application events leading up to the error (e.g. &ldquo;opened database&rdquo;, &ldquo;switched semester&rdquo;, &ldquo;saved changes&rdquo;). These contain operational context only, never scheduling data or personal information.</li>
+                  <li><strong>Session data</strong> &mdash; whether the app session experienced a crash, used to calculate a stability score</li>
+                </ul>
+                <p><strong>What is NOT sent to BugSnag:</strong></p>
+                <ul>
+                  <li>User names, email addresses, or any other personal information</li>
+                  <li>Institution name or any institutional data</li>
+                  <li>Scheduling data (sections, instructors, rooms, courses, or student information)</li>
+                  <li>File paths to the database</li>
+                  <li>Any content entered into the application</li>
+                </ul>
+
+                <h5>Update Checks (non-Store builds only)</h5>
+                <p>
+                  If TermPoint is installed outside the Microsoft Store (e.g. from a direct download),
+                  the app periodically checks <strong>GitHub Releases</strong> for newer versions. This
+                  check sends a standard HTTPS request to GitHub&rsquo;s API; no personal or institutional
+                  data is included.
+                </p>
+                <p>
+                  If TermPoint is installed from the <strong>Microsoft Store</strong>, the Store handles
+                  updates and TermPoint makes no update-check requests itself.
+                </p>
+
+                <h5>Workload Mailer</h5>
+                <p>
+                  The Workload Mailer feature composes emails using the system&rsquo;s default email
+                  client (via <code>mailto:</code> links). TermPoint <strong>does not send email
+                  directly</strong> &mdash; it opens a draft in the local mail application, and the user
+                  decides whether to send it. No email content passes through TermPoint&rsquo;s servers or any
+                  third-party service.
+                </p>
+
+                <h5>What TermPoint Does NOT Do</h5>
+                <ul>
+                  <li><strong>No account or login required</strong> &mdash; TermPoint has no user accounts and no authentication system.</li>
+                  <li><strong>No cloud sync</strong> &mdash; all data stays on locally chosen drives.</li>
+                  <li><strong>No analytics or telemetry</strong> beyond the crash reporting described above.</li>
+                  <li><strong>No advertising or tracking.</strong></li>
+                  <li><strong>No access to contacts, calendar, camera, microphone, or location.</strong></li>
+                </ul>
+
+                
+
+                <h5>Data Retention</h5>
+                <p>
+                  BugSnag retains error data according to its plan terms. On the free tier, error data
+                  is retained for 7 days. TermPoint&rsquo;s local data (database and settings) remains
+                  on the machine until the user deletes it.
+                </p>
+
+                
+
+                <h4>Deployment &amp; Updates</h4>
+                <ul>
+                  <li>Distributed via the Microsoft Store as an MSIX package &mdash; compatible with Intune, SCCM, and Group Policy deployment.</li>
+                  <li>Updates are delivered through the Store&rsquo;s standard update channel.</li>
+                  <li>Installs under standard user permissions &mdash; no admin elevation required.</li>
+                </ul>
+
+                <h4>Infrastructure</h4>
+                <ul>
+                  <li>Zero server infrastructure. No database server, no middleware, no web server, no license server.</li>
+                  <li>For shared use, the only requirement is read/write access to a shared folder (SMB). No special ports, services, or firewall rules beyond standard file sharing.</li>
+                </ul>
+
+                <h4>Security &amp; Compatibility</h4>
+                <ul>
+                  <li>Self-contained deployment &mdash; the .NET runtime is bundled with the application, so no separate runtime installation is required.</li>
+                  <li>Runs on Windows 10 or later (64-bit). Minimal footprint: ~100&nbsp;MB disk, 4&nbsp;GB RAM.</li>
+                  <li>No elevated privileges needed at runtime.</li>
+                </ul>
+
+                <h4>Support Footprint</h4>
+                <ul>
+                  <li>No server maintenance, no patching cycles beyond the app itself, no database administration.</li>
+                  <li>If something goes wrong, uninstall and reinstall from the Store &mdash; schedule data is stored separately and is unaffected.</li>
+                </ul>
+                
+                <h4>Source Code</h4>
+                 The source code is open for inspection on GitHub at https://github.com/gschlitt/SchedulingAssistant.  Subject to the conditions of the license  at https://github.com/gschlitt/SchedulingAssistant/blob/master/README.md, evaluators may download, view, compile and analyze the source code solely for purposes of evaluating, auditing, 
+                testing, or reviewing the security, reliability, and operation of TermPoint.
+                <h5>Contact</h5>
+                <p>
+                  
+                  <a href="mailto:admin@termpoint.ca">admin@termpoint.ca</a>.
                 </p>
               </div>
             </div>
@@ -1746,6 +1913,24 @@
           if (isOpen) {
             panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
           }
+        });
+      })();
+
+      // ── For IT expander ─────────────────
+      // Any element with id="open-forit" (there can be more than one, e.g. a
+      // link inside the IT paragraph in addition to the footer link) opens
+      // and scrolls to this same panel.
+      (function () {
+        const panel = document.getElementById("it-info-panel");
+        const toggles = document.querySelectorAll("#open-forit, .open-forit");
+
+        toggles.forEach((toggle) => {
+          toggle.addEventListener("click", (e) => {
+            e.preventDefault();
+            panel.classList.add("open");
+            toggle.setAttribute("aria-expanded", true);
+            panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          });
         });
       })();
     </script>
