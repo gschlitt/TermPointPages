@@ -10,6 +10,7 @@
     <link
       href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet" />
+    <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
     <style>
       :root {
         --ink: #1a1a2e;
@@ -486,20 +487,9 @@
       </div>
     </footer>
 
-    <!-- ── Paddle.js ──────────────────── -->
-    <!--
-      TODO: Paddle integration
-      1. Replace pri_XXXXXXXXXXXXXXXX in the buy button with your real Paddle price ID
-      2. Switch the script src below:
-         - Sandbox: https://sandbox-cdn.paddle.com/paddle/v2/paddle.js
-         - Production: https://cdn.paddle.com/paddle/v2/paddle.js
-      3. Replace the Paddle.Initialize token with your client-side token
-      4. Optionally add a successCallback to redirect after purchase or show a confirmation
-    -->
-    <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
     <script>
-      // TODO: Replace with your Paddle client-side token
-      Paddle.Initialize({ token: 'test_XXXXXXXXXXXXXXXXXXXXXXXX' });
+      Paddle.Environment.set('sandbox');
+      Paddle.Initialize({ token: 'test_84cbcd3d83f0bdb868bbd419d91' });
     </script>
 
   </body>
