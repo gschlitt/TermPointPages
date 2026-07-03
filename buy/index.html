@@ -396,9 +396,14 @@
             <li><span class="check">&#10003;</span> Full editing access for every user in your department</li>
             <li><span class="check">&#10003;</span> All features — filtering, workload, reports, room tools</li>
             <li><span class="check">&#10003;</span> No user limit — new staff get access immediately</li>
-            <li><span class="check">&#10003;</span> No internet required — license validated locally</li>
+            
             <li><span class="check">&#10003;</span> Includes one year of updates</li>
           </ul>
+
+          <div class="dept-field">
+            <label for="institution-name">Institution name (appears on your license)</label>
+            <input type="text" id="institution-name" placeholder="e.g. University of British Columbia" />
+          </div>
 
           <div class="dept-field">
             <label for="dept-name">Department name (appears on your license)</label>
@@ -483,14 +488,7 @@
           </div>
         </div>
 
-        <div class="faq-item">
-          <div class="faq-q">Is an internet connection required?</div>
-          <div class="faq-a">
-            No. The license is verified locally using a digital signature — no activation server,
-            no phone-home, no internet requirement. TermPoint works the same way on an
-            air-gapped network.
-          </div>
-        </div>
+       
 
         <div class="faq-item">
           <div class="faq-q">What if I want to try before I buy?</div>
@@ -529,6 +527,7 @@
 
       document.getElementById('buy-btn').addEventListener('click', function () {
         var dept = document.getElementById('dept-name').value.trim();
+        var institution = document.getElementById('institution-name').value.trim();
         var err = document.getElementById('dept-error');
 
         if (!dept) {
@@ -541,7 +540,7 @@
 
         Paddle.Checkout.open({
           items: [{ priceId: 'pri_01kwjfq5rvqbjswgkpfn7qzpe4', quantity: 1 }],
-          customData: { department: dept }
+          customData: { department: dept, institution: institution || undefined }
         });
       });
     </script>
