@@ -198,6 +198,40 @@
         transform: translateY(-1px);
       }
 
+      /* ── Department field ──────────── */
+      .dept-field {
+        text-align: left;
+        margin-bottom: 20px;
+      }
+      .dept-field label {
+        display: block;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--ink);
+        margin-bottom: 6px;
+      }
+      .dept-field input {
+        width: 100%;
+        font-family: "DM Sans", sans-serif;
+        font-size: 15px;
+        color: var(--ink);
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        border-radius: var(--radius);
+        padding: 10px 12px;
+        transition: border-color 0.2s;
+      }
+      .dept-field input:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+      .dept-error {
+        font-size: 13px;
+        color: #b44;
+        margin-top: 8px;
+        min-height: 1.2em;
+      }
+
       /* ── How it works ───────────────── */
       .how-section {
         padding: 80px 0 40px;
@@ -366,13 +400,15 @@
             <li><span class="check">&#10003;</span> Includes one year of updates</li>
           </ul>
 
-          <!-- TODO: Replace with your Paddle product/price ID and set sandbox vs production -->
-          <button
-            class="buy-btn"
-            id="buy-btn"
-            onclick="Paddle.Checkout.open({ items: [{ priceId: 'pri_01kwjfq5rvqbjswgkpfn7qzpe4', quantity: 1 }] });">
-            Purchase License (Coming soon)
+          <div class="dept-field">
+            <label for="dept-name">Department name (appears on your license)</label>
+            <input type="text" id="dept-name" placeholder="e.g. Geography Department" />
+          </div>
+
+          <button class="buy-btn" id="buy-btn" type="button">
+            Purchase License
           </button>
+          <p class="dept-error" id="dept-error"></p>
         </div>
 
         <div class="trial-note">
@@ -490,6 +526,24 @@
     <script>
       Paddle.Environment.set('sandbox');
       Paddle.Initialize({ token: 'test_84cbcd3d83f0bdb868bbd419d91' });
+
+      document.getElementById('buy-btn').addEventListener('click', function () {
+        var dept = document.getElementById('dept-name').value.trim();
+        var err = document.getElementById('dept-error');
+
+        if (!dept) {
+          err.textContent = 'Please enter your department name.';
+          document.getElementById('dept-name').focus();
+          return;
+        }
+
+        err.textContent = '';
+
+        Paddle.Checkout.open({
+          items: [{ priceId: 'pri_01kwjfq5rvqbjswgkpfn7qzpe4', quantity: 1 }],
+          customData: { department: dept }
+        });
+      });
     </script>
 
   </body>
