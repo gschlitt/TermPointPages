@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="End User License Agreement for TermPoint." />
+    <title>End User License Agreement — TermPoint</title>
+    <link rel="canonical" href="https://www.termpoint.ca/eula" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet" />
+    <style>
+      :root {
+        --ink: #1a1a2e;
+        --paper: #f6f4f0;
+        --accent: #2d5a27;
+        --accent-light: #3a7a32;
+        --mid: #6b6b7b;
+        --rule: #d5d2cc;
+      }
+
+      *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        color: var(--ink);
+        background: var(--paper);
+        line-height: 1.65;
+        font-size: 17px;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .container {
+        max-width: 820px;
+        margin: 0 auto;
+        padding: 0 clamp(24px, 5vw, 60px);
+      }
+
+      /* ── Nav ─────────────────────────── */
+      nav {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 100;
+        background: rgba(246, 244, 240, 0.85);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--rule);
+      }
+      nav .container {
+        max-width: 1100px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 64px;
+      }
+      .logo {
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 500;
+        font-size: 18px;
+        letter-spacing: -0.5px;
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .logo span { color: var(--accent); }
+      nav ul { list-style: none; display: flex; gap: 32px; }
+      nav a {
+        color: var(--mid);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+        transition: color 0.2s;
+      }
+      nav a:hover { color: var(--ink); }
+
+      /* ── Page ────────────────────────── */
+      .page-header {
+        padding: 120px 0 40px;
+        text-align: center;
+      }
+      .page-header h1 {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(28px, 4vw, 40px);
+        font-weight: 400;
+        line-height: 1.15;
+      }
+      .page-header p.updated {
+        font-size: 14px;
+        color: var(--mid);
+        margin-top: 10px;
+      }
+
+      /* ── Legal content ───────────────── */
+      .legal-content {
+        padding: 0 0 80px;
+      }
+      .legal-content p {
+        font-size: 16px;
+        color: var(--ink);
+        margin-bottom: 18px;
+      }
+      .legal-content p:last-child { margin-bottom: 0; }
+      .legal-content .placeholder {
+        color: var(--mid);
+        font-style: italic;
+      }
+
+      /* ── Footer ──────────────────────── */
+      footer {
+        border-top: 1px solid var(--rule);
+        padding: 40px 0;
+      }
+      .footer-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .footer-links { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+      footer p { font-size: 13px; color: var(--mid); }
+      footer a { color: var(--mid); text-decoration: none; font-size: 13px; }
+      footer a:hover { color: var(--ink); }
+
+      @media (max-width: 768px) {
+        nav ul { display: none; }
+        .footer-row {
+          flex-direction: column;
+          gap: 12px;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- ── Nav ─────────────────────────── -->
+    <nav>
+      <div class="container" style="max-width: 1100px;">
+        <a href="/" class="logo">term<span>point</span></a>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/#features">Features</a></li>
+          <li><a href="/#who">Who It's For</a></li>
+          <li><a href="mailto:admin@termpoint.ca">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- ── Header ─────────────────────── -->
+    <section class="page-header">
+      <div class="container">
+        <h1>End User License Agreement</h1>
+      </div>
+    </section>
+
+    <!-- ── Content ─────────────────────── -->
+    <!-- Sourced from Assets/Legal/EULA.md in the TermPoint repo — keep both in sync. -->
+    <section class="legal-content">
+      <div class="container">
+        <p>This End-User License Agreement ("EULA") is a legal agreement between you (either an individual or a single entity) and Academic-Solutions (hereinafter referred to as "Licensor"), for the software product(s) identified above which may include associated software components, media, printed materials, and "online" or electronic documentation ("SOFTWARE PRODUCT"). By installing, copying, or otherwise using the SOFTWARE PRODUCT, you agree to be bound by the terms of this EULA. This license agreement represents the entire agreement concerning the program between You and the Licensor, and it supersedes any prior proposal, representation, or understanding between the parties. If you do not agree to the terms of this EULA, do not install or use the SOFTWARE PRODUCT.</p>
+
+        <p>The SOFTWARE PRODUCT is protected by copyright laws and international copyright treaties, as well as other intellectual property laws and treaties. The SOFTWARE PRODUCT is licensed, not sold.</p>
+
+        <p>GRANT OF LICENSE. The SOFTWARE PRODUCT is licensed as follows: (a) Installation and Use. The Licensor grants you the right to install and use copies of the SOFTWARE PRODUCT on your computer running a validly licensed copy of the operating system for which the SOFTWARE PRODUCT was designed. (b) Backup Copies. You may also make copies of the SOFTWARE PRODUCT as may be necessary for backup and archival purposes.</p>
+
+        <p>DESCRIPTION OF OTHER RIGHTS AND LIMITATIONS. (a) Maintenance of Copyright Notices. You must not remove or alter any copyright notices on any and all copies of the SOFTWARE PRODUCT. (b) Distribution. You may not distribute copies of the SOFTWARE PRODUCT to third parties. Evaluation versions available for download from the Licensor's websites may be freely distributed. (c) Prohibition on Reverse Engineering, Decompilation, and Disassembly. You may not reverse engineer, decompile, or disassemble the SOFTWARE PRODUCT, except and only to the extent that such activity is expressly permitted by applicable law notwithstanding this limitation. (d) Rental. You may not rent, lease, or lend the SOFTWARE PRODUCT. (e) Support Services. The Licensor may provide you with support services related to the SOFTWARE PRODUCT ("Support Services"). Any supplemental software code provided to you as part of the Support Services shall be considered part of the SOFTWARE PRODUCT and subject to the terms and conditions of this EULA. (f) Compliance with Applicable Laws. You must comply with all applicable laws regarding use of the SOFTWARE PRODUCT.</p>
+
+        <p>(g) Source Code. The Licensor may make source code available for inspection. You may download, view, and analyze the source code solely for purposes of evaluating, auditing, testing, or reviewing the security, reliability, and operation of the SOFTWARE PRODUCT. You may compile and modify the source code for your own internal evaluation purposes or to propose contributions to the SOFTWARE PRODUCT. Except as expressly permitted by this Agreement, no rights are granted to distribute modified versions or derivative works of the SOFTWARE PRODUCT.</p>
+
+        <p>TERMINATION Without prejudice to any other rights, the Licensor may terminate this EULA if you fail to comply with the terms and conditions of this EULA. In such event, you must destroy all copies of the SOFTWARE PRODUCT in your possession.</p>
+
+        <p>Copyright (C) 2026 Academic-Solutions</p>
+
+        <p>Disclaimer of Warranty: This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>
+
+        <p>Limitation of Liability: In no event shall the Licensor be liable for any indirect, incidental, special, or consequential damages, or for damages exceeding the total fees paid by you under this Agreement in the twelve months preceding the claim.</p>
+      </div>
+    </section>
+
+    <!-- ── Footer ─────────────────────── -->
+    <footer>
+      <div class="container" style="max-width: 1100px;">
+        <div class="footer-row">
+          <p>&copy; 2026 TermPoint</p>
+          <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="/eula">EULA</a>
+            <a href="/terms">Terms of Service</a>
+            <a href="/privacy">Privacy</a>
+            <a href="mailto:admin@termpoint.ca">Contact</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>
