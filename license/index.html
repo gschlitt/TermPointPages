@@ -469,7 +469,7 @@
 
           <div class="dept-field">
             <label for="institution-name">Institution name (appears on your license)</label>
-            <input type="text" id="institution-name" placeholder="e.g. University of British Columbia" />
+            <input type="text" id="institution-name" placeholder="e.g. University of South Bend" />
           </div>
 
           <div class="dept-field">
@@ -478,7 +478,7 @@
           </div>
 
           <button class="buy-btn" id="buy-btn" type="button">
-            Purchase License (Coming Soon!)
+            Purchase License
           </button>
           <p class="dept-error" id="dept-error"></p>
         </div>
@@ -624,7 +624,6 @@
     </footer>
 
     <script>
-      Paddle.Environment.set('sandbox');
       Paddle.Initialize({ token: 'live_a0bc1269225802b7aad99556a83' });
 
       document.getElementById('buy-btn').addEventListener('click', function () {
@@ -641,7 +640,7 @@
         err.textContent = '';
 
         Paddle.Checkout.open({
-          items: [{ priceId: 'pri_01kwjfq5rvqbjswgkpfn7qzpe4', quantity: 1 }],
+          items: [{ priceId: 'pri_01kwzddj92vb7wxyt448zjt7za', quantity: 1 }],
           customData: { department: dept, institution: institution || undefined }
         });
       });
