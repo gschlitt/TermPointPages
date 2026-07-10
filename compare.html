@@ -1,12 +1,16 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Course Scheduling Tools Compared — TermPoint</title>
-    <meta name="description" content="How does TermPoint compare to enterprise scheduling suites like Coursedog, Ad Astra, Infosilem, and CourseLeaf CLSS — or to managing your schedule in Excel? A practical guide for department chairs and schedulers choosing the right tool.">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://termpoint.ca/compare">
+    <meta name="description" content="How does TermPoint compare to enterprise scheduling suites like Coursedog, Ad Astra, Infosilem, and CourseLeaf CLSS — or to managing your schedule in Excel? A practical guide for department chairs and schedulers choosing the right tool." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.termpoint.ca/compare" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet" />
 
     <!-- FAQPage structured data for GEO -->
     <script type="application/ld+json">
@@ -111,322 +115,328 @@
     </script>
 
     <style>
-        /* ===== RESET & BASE ===== */
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      :root {
+        --ink: #1a1a2e;
+        --paper: #f6f4f0;
+        --accent: #2d5a27;
+        --accent-light: #3a7a32;
+        --accent-wash: #e8f0e6;
+        --warm: #c5a55a;
+        --warm-wash: #faf6ec;
+        --enterprise: #6b5a8c;
+        --enterprise-wash: #eeecf5;
+        --red: #b44;
+        --red-wash: #f5d0d0;
+        --mid: #6b6b7b;
+        --rule: #d5d2cc;
+        --card: #ffffff;
+        --shadow: rgba(26, 26, 46, 0.08);
+        --radius: 6px;
+      }
 
-        :root {
-            --text-primary: #1a1f2e;
-            --text-secondary: #4a5068;
-            --text-muted: #6b7280;
-            --surface: #ffffff;
-            --surface-alt: #f4f5f7;
-            --surface-raised: #ebedf2;
-            --border: #d1d5db;
-            --border-light: #e5e7eb;
-            --accent: #2563eb;
-            --accent-soft: #dbeafe;
-            --tp-color: #1d4ed8;
-            --tp-bg: #eff6ff;
-            --enterprise-color: #6b21a8;
-            --enterprise-bg: #f5f3ff;
-            --spreadsheet-color: #15803d;
-            --spreadsheet-bg: #f0fdf4;
-            --nav-bg: #1a1f2e;
-            --max-width: 960px;
-        }
+      *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
 
-        html { font-size: 16px; scroll-behavior: smooth; }
+      body {
+        font-family: "DM Sans", sans-serif;
+        color: var(--ink);
+        background: var(--paper);
+        line-height: 1.65;
+        font-size: 17px;
+        -webkit-font-smoothing: antialiased;
+      }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            color: var(--text-primary);
-            background: var(--surface);
-            line-height: 1.65;
-            -webkit-font-smoothing: antialiased;
-        }
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 clamp(24px, 5vw, 60px);
+      }
 
-        /* ===== NAV ===== */
-        nav {
-            background: var(--nav-bg);
-            padding: 0.9rem 1.5rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        nav .nav-inner {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-        }
-        nav .brand {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.05rem;
-            letter-spacing: -0.01em;
-        }
-        nav .brand span { font-weight: 400; opacity: 0.55; margin-left: 0.5rem; font-size: 0.85rem; }
-        nav ul { list-style: none; display: flex; gap: 1.5rem; flex-wrap: wrap; }
-        nav a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.85rem; transition: color 0.15s; }
-        nav a:hover { color: #fff; }
+      /* ── Nav ─────────────────────────── */
+      nav {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 100;
+        background: rgba(246, 244, 240, 0.85);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--rule);
+      }
+      nav .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 64px;
+      }
+      .logo {
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 500;
+        font-size: 18px;
+        letter-spacing: -0.5px;
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .logo span { color: var(--accent); }
+      nav ul { list-style: none; display: flex; gap: 32px; }
+      nav a {
+        color: var(--mid);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+        transition: color 0.2s;
+      }
+      nav a:hover { color: var(--ink); }
 
-        /* ===== LAYOUT ===== */
-        .container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
-        section { padding: 3.5rem 0; }
-        section + section { border-top: 1px solid var(--border-light); }
+      /* ── Layout ──────────────────────── */
+      section { padding: 80px 0; }
+      section + section { border-top: 1px solid var(--rule); }
 
-        /* ===== TYPOGRAPHY ===== */
-        h1 { font-size: 2rem; font-weight: 700; line-height: 1.25; letter-spacing: -0.025em; margin-bottom: 0.75rem; }
-        h2 { font-size: 1.5rem; font-weight: 700; line-height: 1.3; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
-        h3 { font-size: 1.15rem; font-weight: 600; line-height: 1.4; margin-bottom: 0.4rem; }
-        h4 { font-size: 0.95rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.3rem; }
-        p { margin-bottom: 1rem; }
-        p:last-child { margin-bottom: 0; }
+      /* ── Typography ──────────────────── */
+      h1 {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(32px, 4.5vw, 48px);
+        font-weight: 400;
+        line-height: 1.15;
+        margin-bottom: 16px;
+      }
+      h2 {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(24px, 3vw, 32px);
+        font-weight: 400;
+        line-height: 1.25;
+        margin-bottom: 16px;
+      }
+      h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+      h4 {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 8px;
+      }
+      p { margin-bottom: 1rem; color: var(--ink); }
+      p:last-child { margin-bottom: 0; }
 
-        /* ===== HERO ===== */
-        .hero {
-            background: var(--surface-alt);
-            padding: 3.5rem 0 3rem;
-            border-bottom: 1px solid var(--border-light);
-        }
-        .hero p.lead {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            max-width: 680px;
-            margin-bottom: 1.5rem;
-        }
-        .hero .breadcrumb {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-        }
-        .hero .breadcrumb a { color: var(--accent); text-decoration: none; }
+      /* ── Hero ────────────────────────── */
+      .hero {
+        padding: 140px 0 60px;
+      }
+      .hero .breadcrumb {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 1px;
+        color: var(--mid);
+        margin-bottom: 20px;
+      }
+      .hero .breadcrumb a { color: var(--accent); text-decoration: none; }
+      .hero .breadcrumb a:hover { text-decoration: underline; }
+      .hero p.lead {
+        font-size: 18px;
+        color: var(--mid);
+        font-weight: 300;
+        max-width: 720px;
+      }
 
-        /* ===== SPECTRUM ===== */
-        .spectrum {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 1px;
-            background: var(--border);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            overflow: hidden;
-            margin: 2rem 0;
-        }
-        .spectrum-item {
-            padding: 1.5rem 1.25rem;
-            background: var(--surface);
-        }
-        .spectrum-item h3 {
-            font-size: 0.95rem;
-            margin-bottom: 0.5rem;
-        }
-        .spectrum-item p {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            line-height: 1.55;
-        }
-        .spectrum-item.spreadsheet { border-top: 3px solid var(--spreadsheet-color); }
-        .spectrum-item.termpoint { border-top: 3px solid var(--tp-color); }
-        .spectrum-item.enterprise { border-top: 3px solid var(--enterprise-color); }
-        .spectrum-label {
-            display: inline-block;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            padding: 0.15rem 0.5rem;
-            border-radius: 3px;
-            margin-bottom: 0.6rem;
-        }
-        .spectrum-item.spreadsheet .spectrum-label { background: var(--spreadsheet-bg); color: var(--spreadsheet-color); }
-        .spectrum-item.termpoint .spectrum-label { background: var(--tp-bg); color: var(--tp-color); }
-        .spectrum-item.enterprise .spectrum-label { background: var(--enterprise-bg); color: var(--enterprise-color); }
+      /* ── Spectrum ────────────────────── */
+      .spectrum {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 24px;
+        margin: 40px 0;
+      }
+      .spectrum-item {
+        background: var(--card);
+        border: 1px solid var(--rule);
+        border-radius: var(--radius);
+        border-top: 3px solid var(--rule);
+        padding: 28px 24px;
+        transition: box-shadow 0.3s;
+      }
+      .spectrum-item:hover { box-shadow: 0 4px 20px var(--shadow); }
+      .spectrum-item h3 { font-size: 16px; margin-bottom: 12px; }
+      .spectrum-item p { font-size: 14.5px; color: var(--mid); line-height: 1.6; }
+      .spectrum-item.spreadsheet { border-top-color: var(--warm); }
+      .spectrum-item.termpoint { border-top-color: var(--accent); }
+      .spectrum-item.enterprise { border-top-color: var(--enterprise); }
+      .spectrum-label {
+        display: inline-block;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10.5px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 3px 9px;
+        border-radius: 3px;
+        margin-bottom: 14px;
+      }
+      .spectrum-item.spreadsheet .spectrum-label { background: var(--warm-wash); color: #8a6d1f; }
+      .spectrum-item.termpoint .spectrum-label { background: var(--accent-wash); color: var(--accent); }
+      .spectrum-item.enterprise .spectrum-label { background: var(--enterprise-wash); color: var(--enterprise); }
 
-        /* ===== COMPARISON TABLE ===== */
-        .table-wrap {
-            overflow-x: auto;
-            margin: 1.5rem 0;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.88rem;
-            min-width: 640px;
-        }
-        thead th {
-            background: var(--surface-alt);
-            padding: 0.75rem 1rem;
-            text-align: left;
-            font-weight: 600;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-secondary);
-            border-bottom: 2px solid var(--border);
-        }
-        thead th:nth-child(2) { color: var(--spreadsheet-color); }
-        thead th:nth-child(3) { color: var(--tp-color); }
-        thead th:nth-child(4) { color: var(--enterprise-color); }
-        td {
-            padding: 0.65rem 1rem;
-            border-bottom: 1px solid var(--border-light);
-            vertical-align: top;
-        }
-        td:first-child {
-            font-weight: 500;
-            color: var(--text-primary);
-            white-space: nowrap;
-        }
-        tr:last-child td { border-bottom: none; }
-        tr:hover td { background: var(--surface-alt); }
-        .check { color: var(--spreadsheet-color); }
-        .cross { color: #b91c1c; }
-        .partial { color: #d97706; }
+      .positioning {
+        background: var(--accent-wash);
+        border: 1px solid var(--rule);
+        border-radius: var(--radius);
+        padding: 32px;
+        margin-top: 32px;
+      }
+      .positioning h3 { margin-bottom: 12px; }
+      .positioning p { font-size: 15px; color: var(--ink); }
 
-        /* ===== VS SECTIONS ===== */
-        .vs-section {
-            padding: 2.5rem 0;
-        }
-        .vs-section + .vs-section {
-            border-top: 1px solid var(--border-light);
-        }
-        .vs-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 0.4rem;
-        }
-        .vs-subtitle {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 1.25rem;
-        }
-        .vs-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
-        .vs-card {
-            padding: 1.25rem;
-            border-radius: 6px;
-            border: 1px solid var(--border-light);
-        }
-        .vs-card h4 { margin-bottom: 0.5rem; text-transform: none; letter-spacing: 0; font-size: 0.9rem; }
-        .vs-card p { font-size: 0.88rem; color: var(--text-secondary); }
-        .vs-card.tp { background: var(--tp-bg); border-color: #bfdbfe; }
-        .vs-card.other { background: var(--surface-alt); }
+      /* ── Comparison table ────────────── */
+      .table-wrap {
+        overflow-x: auto;
+        margin: 32px 0 0;
+        background: var(--card);
+        border: 1px solid var(--rule);
+        border-radius: var(--radius);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14.5px;
+        min-width: 640px;
+      }
+      thead th {
+        background: var(--paper);
+        padding: 14px 18px;
+        text-align: left;
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 500;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--mid);
+        border-bottom: 1px solid var(--rule);
+      }
+      thead th:nth-child(2) { color: #8a6d1f; }
+      thead th:nth-child(3) { color: var(--accent); }
+      thead th:nth-child(4) { color: var(--enterprise); }
+      td {
+        padding: 12px 18px;
+        border-bottom: 1px solid var(--rule);
+        vertical-align: top;
+        color: var(--ink);
+      }
+      td:first-child { font-weight: 500; white-space: nowrap; }
+      tr:last-child td { border-bottom: none; }
+      tr:hover td { background: var(--paper); }
+      .check { color: var(--accent); }
+      .cross { color: var(--red); }
+      .partial { color: var(--warm); }
 
-        /* ===== FAQ ===== */
-        .faq-item {
-            padding: 1.25rem 0;
-            border-bottom: 1px solid var(--border-light);
-        }
-        .faq-item:last-child { border-bottom: none; }
-        .faq-q {
-            font-weight: 600;
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-        .faq-a {
-            font-size: 0.92rem;
-            color: var(--text-secondary);
-            line-height: 1.65;
-        }
+      /* ── VS sections ─────────────────── */
+      .vs-section { padding: 40px 0; }
+      .vs-section + .vs-section { border-top: 1px solid var(--rule); }
+      .vs-title { font-size: 22px; margin-bottom: 4px; }
+      .vs-subtitle {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 0.5px;
+        color: var(--mid);
+        margin-bottom: 20px;
+      }
+      .vs-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-top: 16px;
+      }
+      .vs-card {
+        padding: 22px;
+        border-radius: var(--radius);
+        border: 1px solid var(--rule);
+        background: var(--card);
+      }
+      .vs-card h4 { color: var(--mid); }
+      .vs-card p { font-size: 14.5px; color: var(--mid); }
+      .vs-card.tp { background: var(--accent-wash); border-color: var(--rule); }
+      .vs-card.tp h4 { color: var(--accent); }
+      .vs-card.tp p { color: var(--ink); }
 
-        /* ===== POSITIONING STATEMENT ===== */
-        .positioning {
-            background: var(--tp-bg);
-            border: 1px solid #bfdbfe;
-            border-radius: 8px;
-            padding: 2rem;
-            margin: 2rem 0;
-        }
-        .positioning p {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-        }
+      /* ── FAQ ─────────────────────────── */
+      .faq-item {
+        padding: 20px 0;
+        border-bottom: 1px solid var(--rule);
+      }
+      .faq-item:last-child { border-bottom: none; }
+      .faq-q { font-weight: 600; font-size: 16px; margin-bottom: 8px; color: var(--ink); }
+      .faq-a { font-size: 15px; color: var(--mid); line-height: 1.65; margin-bottom: 0; }
 
-        /* ===== CTA ===== */
-        .cta-section {
-            text-align: center;
-            padding: 3rem 0;
-        }
-        .cta-section p {
-            color: var(--text-secondary);
-            margin-bottom: 1.25rem;
-        }
-        .btn {
-            display: inline-block;
-            background: var(--accent);
-            color: #fff;
-            text-decoration: none;
-            padding: 0.7rem 1.5rem;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: background 0.15s;
-        }
-        .btn:hover { background: #1d4ed8; }
-        .btn-secondary {
-            background: transparent;
-            color: var(--accent);
-            border: 1px solid var(--accent);
-            margin-left: 0.75rem;
-        }
-        .btn-secondary:hover { background: var(--accent-soft); }
+      /* ── When section ────────────────── */
+      #when strong { color: var(--ink); }
 
-        /* ===== FOOTER ===== */
-        footer {
-            background: var(--nav-bg);
-            color: rgba(255,255,255,0.5);
-            padding: 1.5rem;
-            font-size: 0.8rem;
-            text-align: center;
-        }
-        footer a {
-            color: rgba(255,255,255,0.65);
-            text-decoration: none;
-            margin: 0 0.5rem;
-        }
-        footer a:hover { color: #fff; }
+      /* ── CTA ─────────────────────────── */
+      .cta-section { padding: 100px 0; text-align: center; }
+      .cta-section h2 { margin-bottom: 16px; }
+      .cta-section p { color: var(--mid); font-size: 17px; max-width: 480px; margin: 0 auto 32px; }
+      .cta-btn-row { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--accent);
+        color: #fff;
+        text-decoration: none;
+        padding: 14px 32px;
+        border-radius: var(--radius);
+        font-weight: 500;
+        font-size: 15px;
+        transition: background 0.25s, transform 0.2s;
+      }
+      .btn:hover { background: var(--accent-light); transform: translateY(-1px); }
+      .btn-secondary {
+        background: transparent;
+        color: var(--accent);
+        border: 1px solid var(--accent);
+      }
+      .btn-secondary:hover { background: var(--accent-wash); }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 700px) {
-            h1 { font-size: 1.5rem; }
-            h2 { font-size: 1.25rem; }
-            .spectrum { grid-template-columns: 1fr; }
-            .vs-grid { grid-template-columns: 1fr; }
-            nav ul { display: none; }
-        }
+      /* ── Footer ──────────────────────── */
+      footer {
+        border-top: 1px solid var(--rule);
+        padding: 40px 0;
+      }
+      .footer-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .footer-links { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+      footer p { font-size: 13px; color: var(--mid); }
+      footer a { color: var(--mid); text-decoration: none; font-size: 13px; }
+      footer a:hover { color: var(--ink); }
+
+      /* ── Responsive ──────────────────── */
+      @media (max-width: 768px) {
+        nav ul { display: none; }
+        .spectrum { grid-template-columns: 1fr; }
+        .vs-grid { grid-template-columns: 1fr; }
+        .footer-row { flex-direction: column; gap: 12px; text-align: center; }
+      }
     </style>
 </head>
 <body>
 
-<!-- ===== NAV ===== -->
+<!-- ── Nav ─────────────────────────── -->
 <nav>
-    <div class="nav-inner">
-        <a href="https://termpoint.ca" class="brand">termpoint <span>/ compare</span></a>
-        <ul>
-            <li><a href="https://termpoint.ca">Home</a></li>
-            <li><a href="#overview">Overview</a></li>
-            <li><a href="#table">Comparison</a></li>
-            <li><a href="#vs-sections">Alternatives</a></li>
-            <li><a href="#faq">FAQ</a></li>
-        </ul>
-    </div>
+  <div class="container">
+    <a href="/" class="logo">term<span>point</span></a>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#table">Comparison</a></li>
+      <li><a href="#vs-sections">Alternatives</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+  </div>
 </nav>
 
-<!-- ===== HERO ===== -->
-<div class="hero">
+<!-- ── Hero ────────────────────────── -->
+<section class="hero">
     <div class="container">
-        <div class="breadcrumb"><a href="https://termpoint.ca">TermPoint</a> &rsaquo; Scheduling Tools Compared</div>
+        <div class="breadcrumb"><a href="/">TermPoint</a> &rsaquo; Scheduling Tools Compared</div>
         <h1>Choosing a Course Scheduling Tool for Your Department</h1>
         <p class="lead">
             If you're a department chair or scheduler deciding between spreadsheets, a dedicated tool, or an enterprise
@@ -434,7 +444,7 @@
             optimization or department-level clarity and on who's allowed to make the decision.
         </p>
     </div>
-</div>
+</section>
 
 <!-- ===== SPECTRUM ===== -->
 <section id="overview">
@@ -607,7 +617,7 @@
     <div class="container">
         <h2>TermPoint vs. specific alternatives</h2>
         <p>
-            Each comparison below addresses a different tool category. 
+            Each comparison below addresses a different tool category.
         </p>
 
         <!-- VS EXCEL -->
@@ -635,14 +645,14 @@
                 the limits of what a macro-driven spreadsheet could sustain.
             </p>
             <div class="vs-grid">
-                <div class="vs-card other">
+                <div class="vs-card">
                     <h4>Spreadsheets</h4>
                     <p>
-                        Spreadsheets are flexible, and that can be useful. But the cost of that flexibility is that 
+                        Spreadsheets are flexible, and that can be useful. But the cost of that flexibility is that
                         they're typically unstructured. They have no awareness of scheduling concepts &mdash; a "room" is just a cell
                         value. Conflicts are invisible until someone notices. Multiple-tab coordination breaks down at
                         scale. Custom VBA macros can close
-                        some of these gaps, but reliable ones are labor intensive to build, even with AI help. And 
+                        some of these gaps, but reliable ones are labor intensive to build, even with AI help. And
                         they create a new dependency: the person who wrote the macros.
                     </p>
                 </div>
@@ -670,7 +680,7 @@
                 is built for registrars and provosts managing scheduling across the entire institution.
             </p>
             <div class="vs-grid">
-                <div class="vs-card other">
+                <div class="vs-card">
                     <h4>Coursedog</h4>
                     <p>
                         Institutional platform with SIS sync, approval workflows, demand forecasting, and
@@ -701,7 +711,7 @@
                 deployment, SIS integration, and significant training investment.
             </p>
             <div class="vs-grid">
-                <div class="vs-card other">
+                <div class="vs-card">
                     <h4>Ad Astra</h4>
                     <p>
                         Comprehensive institutional platform with AI-driven recommendations, registration monitoring,
@@ -731,7 +741,7 @@
                 integrates with SIS platforms and supports both centralized and distributed scheduling workflows.
             </p>
             <div class="vs-grid">
-                <div class="vs-card other">
+                <div class="vs-card">
                     <h4>Infosilem</h4>
                     <p>
                         Optimization-first approach: define your constraints and the system generates a schedule.
@@ -763,7 +773,7 @@
                 University of Miami.
             </p>
             <div class="vs-grid">
-                <div class="vs-card other">
+                <div class="vs-card">
                     <h4>CourseLeaf CLSS</h4>
                     <p>
                         Institutional section scheduler with SIS integration (Banner, PeopleSoft), approval
@@ -784,8 +794,6 @@
             </div>
         </div>
 
-        
-
         <!-- VS BANNER -->
         <div class="vs-section" id="vs-banner">
             <h3 class="vs-title">TermPoint vs. Ellucian Banner schedule management</h3>
@@ -798,7 +806,7 @@
                 it to the registrar for entry.
             </p>
             <div class="vs-grid">
-                <div class="vs-card other">
+                <div class="vs-card">
                     <h4>Banner</h4>
                     <p>
                         The institutional system of record for student registration, not a schedule-building
@@ -968,23 +976,28 @@
             Download from the Microsoft Store and try it free for 30 days. No credit card,
             no institutional approval, no IT ticket.
         </p>
-        <a href="https://apps.microsoft.com/detail/9PKMW29F0ML5" class="btn">Download free trial</a>
-        <a href="https://gschlitt.github.io/SchedulingAssistant/" class="btn btn-secondary">Try online demo</a>
+        <div class="cta-btn-row">
+            <a href="https://apps.microsoft.com/detail/9PKMW29F0ML5" class="btn" target="_blank" rel="noopener">Download free trial</a>
+            <a href="https://gschlitt.github.io/SchedulingAssistant/" class="btn btn-secondary">Try online demo</a>
+        </div>
     </div>
 </section>
 
-<!-- ===== FOOTER ===== -->
+<!-- ── Footer ─────────────────────── -->
 <footer>
-    <div class="container">
-        <p>&copy; 2026 TermPoint &middot;
-            <a href="https://termpoint.ca">Home</a>
-            <a href="https://termpoint.ca/for-it">For IT</a>
-            <a href="https://termpoint.ca/eula">EULA</a>
-            <a href="https://termpoint.ca/terms">Terms</a>
-            <a href="https://termpoint.ca/privacy">Privacy</a>
-            <a href="https://termpoint.ca/refund-policy">Refund Policy</a>
-        </p>
+  <div class="container">
+    <div class="footer-row">
+      <p>&copy; 2026 TermPoint</p>
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/for-it">For IT</a>
+        <a href="/eula">EULA</a>
+        <a href="/terms">Terms of Service</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/refund-policy">Refund Policy</a>
+      </div>
     </div>
+  </div>
 </footer>
 
 </body>
