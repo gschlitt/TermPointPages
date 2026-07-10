@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Scheduling Tools Compared — TermPoint</title>
+    <meta name="description" content="How does TermPoint compare to enterprise scheduling suites like Coursedog, Ad Astra, Infosilem, and CourseLeaf CLSS — or to managing your schedule in Excel? A practical guide for department chairs and schedulers choosing the right tool.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://termpoint.ca/compare">
+
+    <!-- FAQPage structured data for GEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Is TermPoint a replacement for Coursedog, Ad Astra, or Infosilem?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. TermPoint is not an enterprise scheduling platform and does not compete with institutional systems like Coursedog, Ad Astra, Infosilem, or CourseLeaf CLSS. Those platforms manage scheduling at the institutional level with SIS integration, optimization algorithms, and cross-campus coordination. TermPoint is a lightweight desktop tool that helps individual departments visualize and build their portion of the schedule before handing it off to the registrar or central system. The two categories serve different roles in the scheduling workflow."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can a single department adopt TermPoint without institutional IT involvement?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. TermPoint is a Windows desktop application available from the Microsoft Store. It installs like any other desktop program — no database server, no SIS integration, no IT provisioning required. A department chair or scheduler can download it, open it, and start building a schedule immediately. Data stays in a local file on the user's machine or a shared network folder."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How does TermPoint compare to building a course schedule in Excel or Google Sheets?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Spreadsheets are flexible but unstructured. They don't flag conflicts, they require manual coordination across tabs, and they break when the person who built the formulas moves on. TermPoint provides a purpose-built scheduling grid with multi-dimensional filtering (by instructor, room, subject, level, time, tags), automatic conflict detection, synchronized views that update together, and workload tracking — while keeping the same ease of adoption that makes spreadsheets attractive in the first place."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Could I build my own course scheduling tool in Excel with VBA macros or AI-generated code?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "You can, and some department chairs do. With AI coding assistants, getting a working prototype is faster than ever. The challenge is sustaining it: handling edge cases reliably, surviving Excel updates, and handing it off when the chair rotates out of the role. Most homebrew scheduling spreadsheets work well for the person who built them and become a maintenance burden for everyone after. TermPoint's developer originally went down this exact road — building a VBA-based scheduling tool that spread organically across departments — and built TermPoint when the limits of that approach became clear."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Does TermPoint integrate with Banner, PeopleSoft, or other student information systems?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. TermPoint is designed to sit upstream of the SIS, not replace it. Departments use TermPoint to shape and visualize their schedule, then hand the finished result to the registrar for entry into the institutional system of record. This is intentional: it means TermPoint works at any institution regardless of which SIS they use, and requires zero integration work."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What if our institution already has an enterprise scheduling system?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "TermPoint can complement an existing enterprise system. Many institutions have centralized platforms like Infosilem or Ad Astra, but the day-to-day work of building a department schedule still happens in spreadsheets because the enterprise tool is either too complex for department-level use or requires permissions the chair does not have. TermPoint fills that gap — it is a workspace for building and refining the schedule that will eventually be submitted to the central system."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How much does TermPoint cost compared to enterprise scheduling software?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "TermPoint is $39.95 CAD per year for a department license, with a free 30-day trial from the Microsoft Store. Enterprise scheduling platforms such as Ad Astra, Coursedog, and Infosilem typically cost tens of thousands of dollars annually, require institutional contracts, and involve significant implementation and training overhead. TermPoint is priced for a single department budget, not an institutional procurement process."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Does TermPoint have an optimization engine or auto-scheduler?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. TermPoint is a visualization and record-keeping tool, not an optimizer. It is built on the principle that department schedulers — who understand faculty preferences, pedagogical constraints, and program needs — make better scheduling decisions than an algorithm, provided they can see the information clearly. TermPoint gives them that clarity through filtering, conflict detection, and synchronized views."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is TermPoint similar to CourseLeaf CLSS Snapper?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The Snapper feature within CourseLeaf CLSS is the closest purpose-built analog to TermPoint's scheduling grid — both provide a visual interface for placing sections into time slots. However, CLSS is an institutional platform that requires SIS integration (typically with Banner or PeopleSoft) and top-down deployment by the registrar's office. TermPoint can be adopted by a single department independently, runs locally, and does not require any institutional infrastructure."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- SoftwareApplication structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "TermPoint",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Windows 10+",
+        "url": "https://termpoint.ca",
+        "description": "Local desktop course timetabling software for university and college departments. Visualization and filtering engine for building departmental course schedules without enterprise complexity.",
+        "offers": {
+            "@type": "Offer",
+            "price": "39.95",
+            "priceCurrency": "CAD",
+            "priceValidUntil": "2027-12-31"
+        },
+        "installUrl": "https://apps.microsoft.com/detail/9PKMW29F0ML5"
+    }
+    </script>
+
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --text-primary: #1a1f2e;
+            --text-secondary: #4a5068;
+            --text-muted: #6b7280;
+            --surface: #ffffff;
+            --surface-alt: #f4f5f7;
+            --surface-raised: #ebedf2;
+            --border: #d1d5db;
+            --border-light: #e5e7eb;
+            --accent: #2563eb;
+            --accent-soft: #dbeafe;
+            --tp-color: #1d4ed8;
+            --tp-bg: #eff6ff;
+            --enterprise-color: #6b21a8;
+            --enterprise-bg: #f5f3ff;
+            --spreadsheet-color: #15803d;
+            --spreadsheet-bg: #f0fdf4;
+            --nav-bg: #1a1f2e;
+            --max-width: 960px;
+        }
+
+        html { font-size: 16px; scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-primary);
+            background: var(--surface);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            background: var(--nav-bg);
+            padding: 0.9rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav .nav-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        nav .brand {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.05rem;
+            letter-spacing: -0.01em;
+        }
+        nav .brand span { font-weight: 400; opacity: 0.55; margin-left: 0.5rem; font-size: 0.85rem; }
+        nav ul { list-style: none; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        nav a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.85rem; transition: color 0.15s; }
+        nav a:hover { color: #fff; }
+
+        /* ===== LAYOUT ===== */
+        .container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
+        section { padding: 3.5rem 0; }
+        section + section { border-top: 1px solid var(--border-light); }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1 { font-size: 2rem; font-weight: 700; line-height: 1.25; letter-spacing: -0.025em; margin-bottom: 0.75rem; }
+        h2 { font-size: 1.5rem; font-weight: 700; line-height: 1.3; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+        h3 { font-size: 1.15rem; font-weight: 600; line-height: 1.4; margin-bottom: 0.4rem; }
+        h4 { font-size: 0.95rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.3rem; }
+        p { margin-bottom: 1rem; }
+        p:last-child { margin-bottom: 0; }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: var(--surface-alt);
+            padding: 3.5rem 0 3rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .hero p.lead {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 680px;
+            margin-bottom: 1.5rem;
+        }
+        .hero .breadcrumb {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+        .hero .breadcrumb a { color: var(--accent); text-decoration: none; }
+
+        /* ===== SPECTRUM ===== */
+        .spectrum {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+        .spectrum-item {
+            padding: 1.5rem 1.25rem;
+            background: var(--surface);
+        }
+        .spectrum-item h3 {
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+        .spectrum-item p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+        }
+        .spectrum-item.spreadsheet { border-top: 3px solid var(--spreadsheet-color); }
+        .spectrum-item.termpoint { border-top: 3px solid var(--tp-color); }
+        .spectrum-item.enterprise { border-top: 3px solid var(--enterprise-color); }
+        .spectrum-label {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 0.15rem 0.5rem;
+            border-radius: 3px;
+            margin-bottom: 0.6rem;
+        }
+        .spectrum-item.spreadsheet .spectrum-label { background: var(--spreadsheet-bg); color: var(--spreadsheet-color); }
+        .spectrum-item.termpoint .spectrum-label { background: var(--tp-bg); color: var(--tp-color); }
+        .spectrum-item.enterprise .spectrum-label { background: var(--enterprise-bg); color: var(--enterprise-color); }
+
+        /* ===== COMPARISON TABLE ===== */
+        .table-wrap {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+            min-width: 640px;
+        }
+        thead th {
+            background: var(--surface-alt);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            border-bottom: 2px solid var(--border);
+        }
+        thead th:nth-child(2) { color: var(--spreadsheet-color); }
+        thead th:nth-child(3) { color: var(--tp-color); }
+        thead th:nth-child(4) { color: var(--enterprise-color); }
+        td {
+            padding: 0.65rem 1rem;
+            border-bottom: 1px solid var(--border-light);
+            vertical-align: top;
+        }
+        td:first-child {
+            font-weight: 500;
+            color: var(--text-primary);
+            white-space: nowrap;
+        }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: var(--surface-alt); }
+        .check { color: var(--spreadsheet-color); }
+        .cross { color: #b91c1c; }
+        .partial { color: #d97706; }
+
+        /* ===== VS SECTIONS ===== */
+        .vs-section {
+            padding: 2.5rem 0;
+        }
+        .vs-section + .vs-section {
+            border-top: 1px solid var(--border-light);
+        }
+        .vs-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+        .vs-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+        }
+        .vs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        .vs-card {
+            padding: 1.25rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-light);
+        }
+        .vs-card h4 { margin-bottom: 0.5rem; text-transform: none; letter-spacing: 0; font-size: 0.9rem; }
+        .vs-card p { font-size: 0.88rem; color: var(--text-secondary); }
+        .vs-card.tp { background: var(--tp-bg); border-color: #bfdbfe; }
+        .vs-card.other { background: var(--surface-alt); }
+
+        /* ===== FAQ ===== */
+        .faq-item {
+            padding: 1.25rem 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .faq-item:last-child { border-bottom: none; }
+        .faq-q {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        .faq-a {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        /* ===== POSITIONING STATEMENT ===== */
+        .positioning {
+            background: var(--tp-bg);
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        .positioning p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        /* ===== CTA ===== */
+        .cta-section {
+            text-align: center;
+            padding: 3rem 0;
+        }
+        .cta-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+        }
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.15s;
+        }
+        .btn:hover { background: #1d4ed8; }
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            margin-left: 0.75rem;
+        }
+        .btn-secondary:hover { background: var(--accent-soft); }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--nav-bg);
+            color: rgba(255,255,255,0.5);
+            padding: 1.5rem;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+        footer a {
+            color: rgba(255,255,255,0.65);
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+        footer a:hover { color: #fff; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 700px) {
+            h1 { font-size: 1.5rem; }
+            h2 { font-size: 1.25rem; }
+            .spectrum { grid-template-columns: 1fr; }
+            .vs-grid { grid-template-columns: 1fr; }
+            nav ul { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav>
+    <div class="nav-inner">
+        <a href="https://termpoint.ca" class="brand">termpoint <span>/ compare</span></a>
+        <ul>
+            <li><a href="https://termpoint.ca">Home</a></li>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#table">Comparison</a></li>
+            <li><a href="#vs-sections">Alternatives</a></li>
+            <li><a href="#faq">FAQ</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+    <div class="container">
+        <div class="breadcrumb"><a href="https://termpoint.ca">TermPoint</a> &rsaquo; Scheduling Tools Compared</div>
+        <h1>Choosing a Course Scheduling Tool for Your Department</h1>
+        <p class="lead">
+            If you're a department chair or scheduler deciding between spreadsheets, a dedicated tool, or an enterprise
+            platform, here's a practical comparison. The right choice depends on whether you need institutional-level
+            optimization or department-level clarity and on who's allowed to make the decision.
+        </p>
+    </div>
+</div>
+
+<!-- ===== SPECTRUM ===== -->
+<section id="overview">
+    <div class="container">
+        <h2>Three tiers of course scheduling tools</h2>
+        <p>
+            Department-level course scheduling in higher education falls into three broad categories. Each serves a
+            different role, requires a different level of institutional commitment, and is adopted by a different
+            decision-maker.
+        </p>
+
+        <div class="spectrum">
+            <div class="spectrum-item spreadsheet">
+                <span class="spectrum-label">Spreadsheets</span>
+                <h3>Excel &amp; Google Sheets</h3>
+                <p>
+                    Universally available and infinitely flexible. No approval needed. But they don't understand
+                    scheduling &mdash; no conflict detection, no synchronized views, no purpose-built visualization.
+                    The person who builds the formulas becomes a single point of failure.
+                </p>
+            </div>
+            <div class="spectrum-item termpoint">
+                <span class="spectrum-label">Department Tool</span>
+                <h3>TermPoint</h3>
+                <p>
+                    A desktop application purpose-built for department-level timetabling. Visual scheduling grid,
+                    multi-dimensional filtering, conflict detection, workload tracking. Runs locally, no IT involvement,
+                    adopted by a single department. $39.95&nbsp;CAD/year.
+                </p>
+            </div>
+            <div class="spectrum-item enterprise">
+                <span class="spectrum-label">Enterprise Suites</span>
+                <h3>Coursedog, Ad&nbsp;Astra, Infosilem, CourseLeaf&nbsp;CLSS, etc.</h3>
+                <p>
+                    Institutional platforms with SIS integration, optimization algorithms, cross-campus coordination,
+                    and analytics. Powerful, but require top-down deployment, IT involvement, and institutional
+                    contracts. Adopted by the registrar or provost, not by a department. Typically very expensive.
+                </p>
+            </div>
+        </div>
+
+        <div class="positioning">
+            <h3>Where TermPoint fits</h3>
+            <p>
+                TermPoint sits between spreadsheets and enterprise scheduling suites. It is a
+                visualization and record-keeping tool for department-level course scheduling &mdash; purpose-built for
+                the person who actually shapes the timetable. It does not optimize, it does not integrate with your SIS,
+                and it does not coordinate across departments. What it does do is give a department chair or scheduler a
+                clear, filterable, conflict-aware view of their schedule, so they can make good decisions and hand off
+                a clean result to the registrar. It can be adopted by a single department without institutional buy-in,
+                IT provisioning, or budget approval beyond a department credit card.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== COMPARISON TABLE ===== -->
+<section id="table">
+    <div class="container">
+        <h2>Feature comparison at a glance</h2>
+        <p>
+            This table compares the three categories on dimensions that matter most to department-level schedulers.
+            Enterprise suites listed include Coursedog, Ad&nbsp;Astra, Infosilem (Berger-Levrault), and CourseLeaf&nbsp;CLSS.
+            Capabilities vary across enterprise products.
+        </p>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Capability</th>
+                        <th>Spreadsheets</th>
+                        <th>TermPoint</th>
+                        <th>Enterprise Suites</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Who can adopt it</td>
+                        <td>Anyone</td>
+                        <td>Any department</td>
+                        <td>Institution (registrar/IT)</td>
+                    </tr>
+                    <tr>
+                        <td>IT involvement required</td>
+                        <td>None</td>
+                        <td>None</td>
+                        <td>Significant</td>
+                    </tr>
+                    <tr>
+                        <td>SIS integration</td>
+                        <td>None</td>
+                        <td>None (by design)</td>
+                        <td>Required</td>
+                    </tr>
+                    <tr>
+                        <td>Visual schedule grid</td>
+                        <td>Manual (build your own)</td>
+                        <td><span class="check">✓</span> Purpose-built</td>
+                        <td><span class="check">✓</span> Varies by product</td>
+                    </tr>
+                    <tr>
+                        <td>Multi-dimensional filtering</td>
+                        <td>Manual (column filters)</td>
+                        <td><span class="check">✓</span> Instructor, room, subject, level, tags, section-type, campus...</td>
+                        <td><span class="check">✓</span> Varies</td>
+                    </tr>
+                    <tr>
+                        <td>Conflict detection</td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="check">✓</span> Room, instructor, time</td>
+                        <td><span class="check">✓</span> Comprehensive</td>
+                    </tr>
+                    <tr>
+                        <td>Optimization / auto-scheduling</td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="cross">✗</span> (intentionally absent)</td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Workload tracking</td>
+                        <td>Manual</td>
+                        <td><span class="check">✓</span> Built-in with history</td>
+                        <td><span class="partial">~</span> Varies</td>
+                    </tr>
+                    <tr>
+                        <td>Cross-department coordination</td>
+                        <td><span class="cross">✗</span></td>
+                        <td>View-sharing only</td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Demand forecasting / analytics</td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Data location</td>
+                        <td>Local file</td>
+                        <td>Local file</td>
+                        <td>Cloud (vendor-hosted)</td>
+                    </tr>
+                    <tr>
+                        <td>Typical cost</td>
+                        <td>Free (with Office/Google)</td>
+                        <td>$39.95 CAD/yr</td>
+                        <td>$30,000–$200,000+/yr institutional</td>
+                    </tr>
+                    <tr>
+                        <td>Implementation time</td>
+                        <td>None</td>
+                        <td>Install and start</td>
+                        <td>Months to a year+</td>
+                    </tr>
+                    <tr>
+                        <td>Training required</td>
+                        <td>Minimal</td>
+                        <td>Minimal</td>
+                        <td>Substantial</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- ===== VS SECTIONS ===== -->
+<section id="vs-sections">
+    <div class="container">
+        <h2>TermPoint vs. specific alternatives</h2>
+        <p>
+            Each comparison below addresses a different tool category. TermPoint is not trying to replace enterprise
+            platforms &mdash; it fills a gap they don't serve.
+        </p>
+
+        <!-- VS EXCEL -->
+        <div class="vs-section" id="vs-excel">
+            <h3 class="vs-title">TermPoint vs. Excel and Google Sheets</h3>
+            <p class="vs-subtitle">The most common starting point for department scheduling</p>
+            <p>
+                Most department chairs build their course schedule in a spreadsheet because there's no realistic
+                alternative. Enterprise platforms require institutional deployment; spreadsheets are already on
+                every machine. The problem isn't that spreadsheets are bad tools &mdash; it's that scheduling isn't
+                what they were built for. Every department chair who has inherited a scheduling spreadsheet from a
+                predecessor knows the fragility: macros that break, tabs that drift out of sync, conflicts that hide
+                in plain sight.
+            </p>
+            <p>
+                Some resourceful chairs go further and build custom VBA macro systems in Excel &mdash; complete with
+                visual grids, conflict highlighting, and automated formatting. With AI coding assistants now widely
+                available, it's easier than ever to get a working prototype. This approach can genuinely work for the
+                person who builds it (and has the time to do so). The challenge is everything that comes after: making it reliable across edge
+                cases, maintaining it when Excel updates break something, handing it off when the chair rotates out
+                of the role, and supporting a colleague who isn't comfortable debugging VBA. The gap between a
+                working prototype and a tool your successor can depend on is where most homebrew scheduling
+                spreadsheets eventually stall. TermPoint exists in part because its senior developer walked that exact
+                path &mdash; building a VBA scheduling tool, watching it spread to other departments, and recognizing
+                the limits of what a macro-driven spreadsheet could sustain.
+            </p>
+            <div class="vs-grid">
+                <div class="vs-card other">
+                    <h4>Spreadsheets</h4>
+                    <p>
+                        Flexible but unstructured. No awareness of scheduling concepts &mdash; a "room" is just a cell
+                        value. Conflicts are invisible until someone notices. Multiple-tab coordination breaks down at
+                        scale. The person who built the formulas becomes irreplaceable. Custom VBA macros can close
+                        some of these gaps, but they create a new dependency: the person who wrote the macros.
+                    </p>
+                </div>
+                <div class="vs-card tp">
+                    <h4>TermPoint</h4>
+                    <p>
+                        Understands rooms, instructors, time slots, and sections as first-class objects. Filter the
+                        entire schedule by any dimension instantly. Change a section's time and every view updates.
+                        Conflicts surface the moment they're created, not after the schedule is submitted.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- VS COURSEDOG -->
+        <div class="vs-section" id="vs-coursedog">
+            <h3 class="vs-title">TermPoint vs. Coursedog</h3>
+            <p class="vs-subtitle">Cloud-based institutional scheduling and curriculum platform</p>
+            <p>
+                Coursedog is an integrated academic operations platform that unifies course scheduling, curriculum
+                management, catalog publishing, and demand analytics. It integrates with major SIS platforms
+                (Ellucian Banner, PeopleSoft, Workday, Jenzabar) and is deployed at the institutional level. Coursedog
+                is built for registrars and provosts managing scheduling across the entire institution.
+            </p>
+            <div class="vs-grid">
+                <div class="vs-card other">
+                    <h4>Coursedog</h4>
+                    <p>
+                        Institutional platform with SIS sync, approval workflows, demand forecasting, and
+                        cross-campus collaboration. Requires institutional contract and IT implementation.
+                        Powerful, but adopted top-down &mdash; a single department cannot deploy it independently.
+                    </p>
+                </div>
+                <div class="vs-card tp">
+                    <h4>TermPoint</h4>
+                    <p>
+                        Department-level tool, no SIS integration, no institutional contract. A department chair can
+                        install it today and start building next term's schedule. Serves as the workspace where the
+                        schedule takes shape before being submitted to the registrar or entered into a system like
+                        Coursedog.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- VS AD ASTRA -->
+        <div class="vs-section" id="vs-adastra">
+            <h3 class="vs-title">TermPoint vs. Ad Astra</h3>
+            <p class="vs-subtitle">AI-powered scheduling and academic planning for higher education</p>
+            <p>
+                Ad Astra (aais.com) partners with over 550 institutions to provide course scheduling, event management,
+                room optimization, and demand analytics. Its platform includes patented predictive analytics and
+                cross-department planning tools. Like other enterprise platforms, Ad Astra requires institutional
+                deployment, SIS integration, and significant training investment.
+            </p>
+            <div class="vs-grid">
+                <div class="vs-card other">
+                    <h4>Ad Astra</h4>
+                    <p>
+                        Comprehensive institutional platform with AI-driven recommendations, registration monitoring,
+                        and multi-term planning. G2 reviewers note strong analytics but a steep learning curve.
+                        Pricing runs into the tens of thousands annually, with multi-year contracts.
+                    </p>
+                </div>
+                <div class="vs-card tp">
+                    <h4>TermPoint</h4>
+                    <p>
+                        No AI, no analytics, no learning curve. A single-purpose visualization tool that a
+                        department scheduler can open and use immediately. Serves departments that need to see and
+                        shape their schedule clearly, not institutions that need cross-campus optimization.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- VS INFOSILEM -->
+        <div class="vs-section" id="vs-infosilem">
+            <h3 class="vs-title">TermPoint vs. Infosilem</h3>
+            <p class="vs-subtitle">Constraint-based academic timetabling suite (Berger-Levrault)</p>
+            <p>
+                Infosilem has served higher education scheduling for over 30 years, providing constraint-based
+                timetable generation, room optimization, and exam scheduling. The platform uses algorithmic
+                optimization to generate schedules that respect institutional rules and faculty constraints. It
+                integrates with SIS platforms and supports both centralized and distributed scheduling workflows.
+            </p>
+            <div class="vs-grid">
+                <div class="vs-card other">
+                    <h4>Infosilem</h4>
+                    <p>
+                        Optimization-first approach: define your constraints and the system generates a schedule.
+                        Powerful for institutions that can invest in configuration and rule definition. Requires
+                        IT infrastructure, SIS integration, and dedicated scheduling administrators to maintain.
+                    </p>
+                </div>
+                <div class="vs-card tp">
+                    <h4>TermPoint</h4>
+                    <p>
+                        Visualization-first approach: the scheduler sees the full picture and makes the decisions.
+                        No constraint engine, no algorithmic generation. TermPoint assumes the department scheduler
+                        knows their faculty, courses, and constraints better than any algorithm &mdash; they just
+                        need a clear view.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- VS COURSELEAF CLSS -->
+        <div class="vs-section" id="vs-clss">
+            <h3 class="vs-title">TermPoint vs. CourseLeaf CLSS</h3>
+            <p class="vs-subtitle">Section scheduler with Snapper visual grid</p>
+            <p>
+                CourseLeaf CLSS is the closest purpose-built comparison to TermPoint's scheduling grid. Its Snapper
+                feature provides a visual interface for placing sections into time slots with immediate conflict
+                feedback, and it includes tools like the Heat Map for utilization analysis and the Framer for
+                year-over-year comparison. CLSS is used at institutions ranging from Duke and Cal Poly to the
+                University of Miami.
+            </p>
+            <div class="vs-grid">
+                <div class="vs-card other">
+                    <h4>CourseLeaf CLSS</h4>
+                    <p>
+                        Institutional section scheduler with SIS integration (Banner, PeopleSoft), approval
+                        workflows, and validation rules defined by the registrar's office. Departments work within
+                        it, but deployment and configuration are managed centrally. The Snapper visual grid
+                        is a feature within the larger platform, not a standalone tool.
+                    </p>
+                </div>
+                <div class="vs-card tp">
+                    <h4>TermPoint</h4>
+                    <p>
+                        The visual grid and filtering are the entire product, not one feature among many.
+                        No SIS integration, no registrar-managed rules, no approval workflow. A standalone
+                        workspace for departments that want to build and refine their schedule independently before
+                        submitting to the central system.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        
+
+        <!-- VS BANNER -->
+        <div class="vs-section" id="vs-banner">
+            <h3 class="vs-title">TermPoint vs. Ellucian Banner schedule management</h3>
+            <p class="vs-subtitle">The SIS that many departments submit into, not schedule with</p>
+            <p>
+                Ellucian Banner is the student information system used by hundreds of universities and colleges.
+                Its schedule management module (SSASECT and related forms) is where course sections are officially
+                recorded, but it is not a scheduling design tool. Most departments that use Banner as their SIS
+                still build their schedule in Excel, then enter the finished product into Banner &mdash; or submit
+                it to the registrar for entry.
+            </p>
+            <div class="vs-grid">
+                <div class="vs-card other">
+                    <h4>Banner</h4>
+                    <p>
+                        The institutional system of record for student registration, not a schedule-building
+                        workspace. Data entry forms, not visual grids. No filtering by instructor or
+                        program across sections. The place the schedule goes after it's built, not where it's
+                        designed.
+                    </p>
+                </div>
+                <div class="vs-card tp">
+                    <h4>TermPoint</h4>
+                    <p>
+                        The workspace where the schedule is designed before it goes to Banner. TermPoint sits
+                        upstream of the SIS, giving departments a visual, filterable, conflict-aware environment
+                        for building the schedule that will eventually be entered into the system of record.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== WHEN TO USE WHAT ===== -->
+<section id="when">
+    <div class="container">
+        <h2>When to use what</h2>
+        <p>
+            <strong>Use a spreadsheet</strong> if your department schedules fewer than 20 sections, one person
+            manages it entirely, and you have no recurring problems with conflicts or handoff errors. Spreadsheets
+            are free and already on your machine.
+        </p>
+        <p>
+            <strong>Use TermPoint</strong> if your department schedules dozens or low hundreds of sections, you need to
+            filter and visualize the schedule across multiple dimensions (instructor, room, program, level), you want
+            conflict detection and workload tracking, and you need to do all of this without waiting for an
+            institutional software deployment. TermPoint is the right tool when the department itself controls the
+            scheduling workflow and hands off the result.
+        </p>
+        <p>
+            <strong>Use an enterprise platform</strong> if your institution needs cross-department optimization,
+            demand forecasting, SIS-integrated workflows, or centralized control over the scheduling process. These
+            platforms require institutional commitment, budget, and IT resources &mdash; but they solve problems
+            (like institution-wide room optimization and enrollment-driven section planning) that no
+            department-level tool can.
+        </p>
+    </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section id="faq">
+    <div class="container">
+        <h2>Frequently asked questions</h2>
+
+        <div class="faq-item">
+            <p class="faq-q">Is TermPoint a replacement for Coursedog, Ad Astra, or Infosilem?</p>
+            <p class="faq-a">
+                No. TermPoint is not an enterprise scheduling platform and does not compete with institutional
+                systems. Those platforms manage scheduling at the institutional level with SIS integration,
+                optimization algorithms, and cross-campus coordination. TermPoint is a lightweight desktop tool
+                that helps individual departments visualize and build their portion of the schedule before handing
+                it off to the registrar or central system. The two categories serve different roles in the scheduling
+                workflow.
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <p class="faq-q">Can a single department adopt TermPoint without institutional IT involvement?</p>
+            <p class="faq-a">
+                Yes. TermPoint is a Windows desktop application available from the Microsoft Store. It installs like
+                any other desktop program &mdash; no database server, no SIS integration, no IT provisioning required.
+                A department chair or scheduler can download it, open it, and start building a schedule immediately.
+                Data stays in a local file on the user's machine or a shared network folder.
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <p class="faq-q">How does TermPoint compare to building a course schedule in Excel?</p>
+            <p class="faq-a">
+                Spreadsheets are flexible but unstructured. They don't flag conflicts, they require manual
+                coordination across tabs, and they break when the person who built the formulas moves on. TermPoint
+                provides a purpose-built scheduling grid with multi-dimensional filtering (by instructor, room,
+                subject, level, time, tags), automatic conflict detection, synchronized views that update together,
+                and workload tracking &mdash; while keeping the same ease of adoption that makes spreadsheets
+                attractive in the first place.
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <p class="faq-q">Could I just build my own scheduling tool in Excel with VBA macros or AI-generated code?</p>
+            <p class="faq-a">
+                You can, and some department chairs do, at least those with the time to invest. With AI coding assistants, getting a working prototype is
+                faster than ever. The challenge isn't building it, it's sustaining it. A custom VBA scheduling
+                workbook needs to handle edge cases reliably (split meetings, cross-listed sections, multi-room labs),
+                survive Excel version updates, and be usable by whichever colleague or successor inherits it. Most
+                homebrew scheduling spreadsheets work well for the person who built them and become a maintenance
+                burden for everyone after. TermPoint's developer originally went down this exact road, building
+                a VBA-based scheduling tool that spread organically across departments. He built TermPoint
+                when the limits of that approach became clear.
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <p class="faq-q">Does TermPoint integrate with Banner, PeopleSoft, or other SIS platforms?</p>
+            <p class="faq-a">
+                No. TermPoint is designed to sit upstream of the SIS, not replace it. Departments use TermPoint to
+                shape and visualize their schedule, then hand the finished result to the registrar for entry into
+                the institutional system of record. This is intentional: it means TermPoint works at any institution
+                regardless of which SIS they use, and requires zero integration work.
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <p class="faq-q">What if our institution already has an enterprise scheduling system?</p>
+            <p class="faq-a">
+                TermPoint can complement an existing enterprise system. Many institutions have centralized platforms,
+                but the day-to-day work of building a department schedule still happens in spreadsheets because the
+                enterprise tool is either too complex for department-level use, or requires permissions the chair does
+                not have. TermPoint fills that gap &mdash; it is a workspace for building and refining the schedule
+                that will eventually be submitted to the central system.
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <p class="faq-q">How much does TermPoint cost compared to enterprise scheduling software?</p>
+            <p class="faq-a">
+                TermPoint is $39.95 CAD per year for a department license, with a free 30-day trial from the Microsoft
+                Store. Enterprise scheduling platforms such as Ad Astra, Coursedog, and Infosilem typically cost tens
+                of thousands of dollars annually, require institutional contracts, and involve significant
+                implementation overhead.
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <p class="faq-q">Does TermPoint have an optimization engine or auto-scheduler?</p>
+            <p class="faq-a">
+                No. TermPoint is a visualization and record-keeping tool, not an optimizer. It is built on the
+                principle that department schedulers &mdash; who understand faculty preferences, pedagogical
+                constraints, and program needs &mdash; make better scheduling decisions than an algorithm, provided
+                they can see the information clearly. TermPoint gives them that clarity.
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <p class="faq-q">Is TermPoint similar to CourseLeaf CLSS Snapper?</p>
+            <p class="faq-a">
+                The Snapper feature within CourseLeaf CLSS is the closest purpose-built analog to TermPoint's
+                scheduling grid &mdash; both provide a visual interface for placing sections into time slots.
+                However, CLSS is an institutional platform that requires SIS integration and top-down deployment
+                by the registrar's office. TermPoint can be adopted by a single department independently, runs
+                locally, and does not require any institutional infrastructure.
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <p class="faq-q">Does TermPoint work on macOS?</p>
+            <p class="faq-a">
+                Not yet. TermPoint currently runs on Windows 10 and later. A macOS version is planned.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta-section">
+    <div class="container">
+        <h2>See if TermPoint fits your department</h2>
+        <p>
+            Download from the Microsoft Store and try it free for 30 days. No credit card,
+            no institutional approval, no IT ticket.
+        </p>
+        <a href="https://apps.microsoft.com/detail/9PKMW29F0ML5" class="btn">Download free trial</a>
+        <a href="https://gschlitt.github.io/SchedulingAssistant/" class="btn btn-secondary">Try online demo</a>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <div class="container">
+        <p>&copy; 2026 TermPoint &middot;
+            <a href="https://termpoint.ca">Home</a>
+            <a href="https://termpoint.ca/for-it">For IT</a>
+            <a href="https://termpoint.ca/eula">EULA</a>
+            <a href="https://termpoint.ca/terms">Terms</a>
+            <a href="https://termpoint.ca/privacy">Privacy</a>
+            <a href="https://termpoint.ca/refund-policy">Refund Policy</a>
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>
