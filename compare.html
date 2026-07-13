@@ -490,9 +490,9 @@
             <h3>Where TermPoint fits</h3>
             <p>
                 TermPoint sits between spreadsheets and enterprise scheduling suites. It is a
-                visualization and record-keeping tool for department-level course scheduling &mdash; purpose-built for
-                the person who actually shapes the timetable. It does not optimize, it does not integrate with your SIS,
-                and it does not coordinate across departments. What it does do is give a department chair or scheduler a
+                simple visualization and record-keeping tool for department-level course scheduling &mdash; purpose-built for
+                the person who actually shapes the timetable. It does not optimize and it does not integrate with your SIS.
+                What it does do is give a department chair or scheduler a
                 clear, filterable, conflict-aware view of their schedule, so they can make good decisions and hand off
                 a clean result to the registrar. It can be adopted by a single department without institutional buy-in,
                 IT provisioning, or budget approval beyond a department credit card.
@@ -901,7 +901,7 @@
                 workbook needs to handle edge cases reliably,
                 survive Excel version updates, and be usable by whichever colleague or successor inherits it. Most
                 homebrew scheduling spreadsheets work well for the person who built them and become a maintenance
-                burden for everyone after. TermPoint's developer originally went down this exact road, building
+                burden for everyone after. TermPoint's head developer originally went down this exact road, building
                 a VBA-based scheduling tool that spread organically across departments. He built TermPoint
                 when the limits of that approach became clear.
             </p>
@@ -913,7 +913,11 @@
                 No. TermPoint is designed to sit upstream of the SIS, not replace it. Departments use TermPoint to
                 shape and visualize their schedule, then hand the finished result to the registrar for entry into
                 the institutional system of record. This is intentional: it means TermPoint works at any institution
-                regardless of which SIS they use, and requires zero integration work.
+                regardless of which SIS they use, and requires zero integration work. The same is true of the spreadsheet
+                approach, but the disadvantage there is that the authoritative data is graphical: the weekly grid. 
+                The user still needs to make the tedious and error-prone graphical-to-text translation when migrating 
+                the schedle to an SIS. In TermPoint, the authoritative data is <em>already</em> textual in very much 
+                the same format as an SIS schedule edit page. Migration is much easier.
             </p>
         </div>
 
