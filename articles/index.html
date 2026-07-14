@@ -1,15 +1,17 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Technical details for IT departments evaluating TermPoint: architecture, deployment, infrastructure, and security." />
-    <title>For IT — TermPoint</title>
-    <link rel="canonical" href="https://termpoint.ca/for-it" />
+    <title>Articles — TermPoint</title>
+    <meta name="description" content="Articles on university department scheduling, timetabling workflows, and the tools that support them." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://termpoint.ca/articles/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet" />
+
     <style>
       :root {
         --ink: #1a1a2e;
@@ -19,6 +21,8 @@
         --mid: #6b6b7b;
         --rule: #d5d2cc;
         --card: #ffffff;
+        --shadow: rgba(26, 26, 46, 0.08);
+        --radius: 6px;
       }
 
       *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -85,42 +89,54 @@
         font-size: clamp(28px, 4vw, 40px);
         font-weight: 400;
         line-height: 1.15;
+        margin-bottom: 12px;
+      }
+      .page-header p {
+        font-size: 17px;
+        color: var(--mid);
+        max-width: 520px;
+        margin: 0 auto;
       }
 
-      /* ── Content ─────────────────────── */
-      .legal-content {
-        padding: 0 0 80px;
+      /* ── Article list ───────────────── */
+      .article-list {
+        padding: 0 0 100px;
       }
-      .legal-content p {
-        font-size: 16px;
-        color: var(--ink);
-        margin-bottom: 18px;
-      }
-      .legal-content p:last-child { margin-bottom: 0; }
-      .legal-content h2 {
-        font-size: 18px;
-        font-weight: 600;
-        margin: 32px 0 12px;
-      }
-      .legal-content h2:first-of-type { margin-top: 0; }
-      .legal-content ul {
-        margin: 0 0 18px 20px;
-      }
-      .legal-content li {
-        margin-bottom: 8px;
-      }
-      .legal-content a {
-        color: var(--accent);
-        text-decoration: none;
-        border-bottom: 1px solid var(--accent);
-      }
-      .legal-content a:hover { color: var(--accent-light); }
-      .legal-content code {
-        font-family: "JetBrains Mono", monospace;
-        font-size: 0.9em;
+      .article-card {
+        display: block;
         background: var(--card);
-        padding: 2px 6px;
-        border-radius: 3px;
+        border: 1px solid var(--rule);
+        border-radius: var(--radius);
+        padding: 32px;
+        text-decoration: none;
+        color: inherit;
+        transition: box-shadow 0.3s, transform 0.2s;
+        margin-bottom: 24px;
+      }
+      .article-card:hover {
+        box-shadow: 0 4px 20px var(--shadow);
+        transform: translateY(-2px);
+      }
+      .article-card h2 {
+        font-family: "DM Serif Display", serif;
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 1.25;
+        margin-bottom: 10px;
+        color: var(--ink);
+      }
+      .article-card p {
+        font-size: 15px;
+        color: var(--mid);
+        line-height: 1.6;
+      }
+      .article-card .read-more {
+        display: inline-block;
+        margin-top: 14px;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--accent);
+        letter-spacing: 0.2px;
       }
 
       /* ── Footer ──────────────────────── */
@@ -147,8 +163,8 @@
         }
       }
     </style>
-  </head>
-  <body>
+</head>
+<body>
 
     <!-- ── Nav ─────────────────────────── -->
     <nav>
@@ -166,50 +182,19 @@
     <!-- ── Header ─────────────────────── -->
     <section class="page-header">
       <div class="container">
-        <h1>For IT</h1>
+        <h1>Articles</h1>
+        <p>On university department scheduling, timetabling workflows, and the tools that support them.</p>
       </div>
     </section>
 
-    <!-- ── Content ─────────────────────── -->
-    <section class="legal-content">
+    <!-- ── Article list ───────────────── -->
+    <section class="article-list">
       <div class="container">
-        <h2>Architecture</h2>
-        <p>TermPoint is built with <strong>.NET</strong> and <strong>Avalonia UI</strong>, a cross-platform desktop framework. Schedule data is stored in a <strong>SQLite</strong> database — a single file with no server process. The .NET runtime is bundled with the application, so there is nothing extra to install or maintain.</p>
-
-        <h2>Privacy &amp; Data Handling</h2>
-        <p>TermPoint is designed to keep all data local and minimize external communication. For a full breakdown of what's stored, what's sent over the network (crash reporting, update checks), and what TermPoint does not do, see our <a href="/privacy">Privacy Statement</a>.</p>
-
-        <h2>Deployment &amp; Updates</h2>
-        <ul>
-          <li>Distributed via the Microsoft Store as an MSIX package — compatible with Intune, SCCM, and Group Policy deployment.</li>
-          <li>Updates are delivered through the Store's standard update channel.</li>
-          <li>Installs under standard user permissions — no admin elevation required.</li>
-        </ul>
-
-        <h2>Infrastructure</h2>
-        <ul>
-          <li>Zero server infrastructure. No database server, no middleware, no web server, no license server.</li>
-          <li>For shared use, the only requirement is read/write access to a shared folder (SMB). No special ports, services, or firewall rules beyond standard file sharing.</li>
-        </ul>
-
-        <h2>Security &amp; Compatibility</h2>
-        <ul>
-          <li>Self-contained deployment — the .NET runtime is bundled with the application, so no separate runtime installation is required.</li>
-          <li>Runs on Windows 10 or later (64-bit). Minimal footprint: ~100&nbsp;MB disk, 4&nbsp;GB RAM.</li>
-          <li>No elevated privileges needed at runtime.</li>
-        </ul>
-
-        <h2>Support Footprint</h2>
-        <ul>
-          <li>No server maintenance, no patching cycles beyond the app itself, no database administration.</li>
-          <li>If something goes wrong, uninstall and reinstall from the Store — schedule data is stored separately and is unaffected.</li>
-        </ul>
-
-        <h2>Source Code</h2>
-        <p>The source code is open for inspection on GitHub at <a href="https://github.com/gschlitt/SchedulingAssistant" target="_blank" rel="noopener">github.com/gschlitt/SchedulingAssistant</a>. Subject to the conditions of the <a href="https://github.com/gschlitt/SchedulingAssistant/blob/master/LICENSE.md" target="_blank" rel="noopener">license</a>, evaluators may download, view, compile, and analyze the source code solely for purposes of evaluating, auditing, testing, or reviewing the security, reliability, and operation of TermPoint.</p>
-
-        <h2>Contact</h2>
-        <p><a href="mailto:admin@termpoint.ca">admin@termpoint.ca</a></p>
+        <a href="/articles/department-scheduling-spreadsheets" class="article-card">
+          <h2>The Scheduler the System Forgot</h2>
+          <p>Every university department has one: the person who builds the timetable. They hold irreplaceable local knowledge &mdash; yet institutional systems and spreadsheets both fail them. How the gap between enterprise timetabling and day-to-day scheduling actually works, and what would close it.</p>
+          <span class="read-more">Read article &rarr;</span>
+        </a>
       </div>
     </section>
 
@@ -220,15 +205,16 @@
           <p>&copy; 2026 TermPoint</p>
           <div class="footer-links">
             <a href="/">Home</a>
+            <a href="/articles/">Articles</a>
+            <a href="/for-it">For IT</a>
             <a href="/eula">EULA</a>
             <a href="/terms">Terms of Service</a>
             <a href="/privacy">Privacy</a>
             <a href="/refund-policy">Refund Policy</a>
-            <a href="mailto:admin@termpoint.ca">Contact</a>
           </div>
         </div>
       </div>
     </footer>
 
-  </body>
+</body>
 </html>
