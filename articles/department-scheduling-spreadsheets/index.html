@@ -246,7 +246,7 @@
         <p>Every university department has one: the person who builds the timetable. Sometimes it's the chair, 
           sometimes an administrator or program coordinator, but whoever holds the job holds something else too: an accumulated, largely undocumented understanding of how their department actually runs. They know that two particular required courses can never overlap, that a certain instructor's lab needs the room with the fume hoods, that third-year students in one stream reliably take an elective from another. This local knowledge is the real engine of a workable schedule.</p>
 
-        <p>It's also the thing institutional systems are least equipped to use.</p>
+        <p>How do institutions use that information?</p>
 
         <h2>What the big systems do &mdash; and what they don't</h2>
 
@@ -257,12 +257,14 @@
           And even where translation is possible, encoding hundreds of workflows, exceptions, and student-access considerations into a constraint interface is easily as much work as simply building the timetable. The department ends up doing the hard part anyway, only now in a format designed for a machine rather than for a human decision-maker.</p>
 
         <p>But there's a deeper mismatch. Department timetables are rarely built from scratch. They evolve. 
-          Year over year, schedulers adjust what worked, repair what didn't, and gradually converge on arrangements that best use their resources and keep courses accessible to students. 
-          Like most products of patient trial and error, the result is more effective than the process suggests. A system that wants to regenerate the schedule from first principles each
-          year discards that inheritance and asks the department to rebuild, in constraint form, knowledge that was already embodied in last year's grid.</p>
+          Year over year, schedulers work together to adjust what worked, repair what didn't, and converge on arrangements that best use their resources and keep courses accessible to students. 
+          Like most products of patient trial and error, the result is more effective than the process suggests. A system that wants to regenerate the schedule from first principles
+   discards that inheritance and asks the department to rebuild, in constraint form, knowledge that was already embodied in last year's grid.</p>
 
-        <p>And no timetable, however good, survives an academic year untouched. Instructors arrive and leave, sections are added or cancelled, enrollments shift. Each change lands on the scheduler's desk needing a quick, sound decision. What that moment demands is not another optimization run; it's the ability to <em>see</em> 
-          the situation clearly &mdash; what's affected, what conflicts, what's still open &mdash; so the person with the local knowledge can quickly act on it.</p>
+        <p>And no timetable, however good, survives an academic year untouched. Instructors arrive and leave, sections are added or cancelled, enrollments shift.
+          Each change lands on the scheduler's desk needing a quick, sound decision. What that moment demands is not another optimization run; it's the ability to <em>see</em> 
+          the situation clearly &mdash; what's affected, what conflicts, what's still open &mdash; so the person with the local knowledge can quickly act on it. The legacy systems
+          aren't designed for that: they're designed to make the decisions, not support decision making.</p>
 
         <h2>The spreadsheet trap</h2>
 
@@ -274,16 +276,21 @@
           Many schedulers know the aftermath firsthand: the timetable goes to the registrar, the collisions surface, and an afternoon disappears into apologetic emails before registration opens.</p>
 
         <p>The obvious rejoinder &mdash; "surely there's software for this" &mdash; turns out to be less help than expected. There are hundreds of scheduling programs, but most are built for K-12 schools, whose scheduling problem is structurally different. Most of the rest require server databases, IT projects, and procurement approvals, which puts them right back behind the institutional wall
-          the scheduler was trying to get around. And many are, in their own way, as complex as the enterprise systems they're meant to supplement. Our <a href="/compare.html">comparison page</a> covers the landscape in more detail.</p>
+          the scheduler was trying to get around. And many are, in their own way, as complex as the enterprise systems they're meant to supplement. They're again focussed at the institutional level of 
+          generality, not on the department-level scheduler trying to get things done.
+          Our <a href="/compare.html">comparison page</a> covers the landscape in more detail.</p>
 
         <p>The department-level scheduler feels the pain daily but is locked in place by decisions made elsewhere: institutional commitments, procurement processes, IT policy. It's a gap in the market shaped exactly like one person's job.</p>
 
         <h2>What would actually help</h2>
 
-        <p>Two things, neither of them exotic. First, effective visual presentation: views of the schedule that surface issues instead of burying them, filtered to the instructor, room, program, or day in question, and kept in sync so that one change propagates everywhere. The scheduler makes the decisions; the software's job is to make the situation visible.</p>
+        <p>Three things, none of them exotic. First, effective visual presentation: views of the schedule that surface issues instead of burying them, filtered to the instructor, room, program, or day in question, and kept in sync so that one change propagates everywhere. The scheduler makes the decisions; the software's job is to make the situation visible.</p>
 
         <p>Second, conflict monitoring offered as a tool, not a rule. Instructor collisions, room collisions, and student-access collisions should be flagged the moment they arise &mdash; but defining what counts as a collision, particularly for student access, has to be nearly effortless. If it requires maintaining lists of formal constraints in an enterprise interface, we're back where we started.</p>
 
+        <p> Third, simplicity and focus on the what the department-level scheduler needs. Spreadsheets don't require training, which is one good thing about them. A better tool need not be more complex, just better.
+        </p>
+          
         <h2>Filling the gap</h2>
 
         <p>TermPoint was built for exactly this gap. It's a <a href="/">desktop timetabling application</a> for university and college departments:
