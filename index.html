@@ -87,7 +87,8 @@
       nav ul {
         list-style: none;
         display: flex;
-        gap: 32px;
+        align-items: center;
+        gap: clamp(16px, 2.4vw, 32px);
       }
       nav a {
         color: var(--mid);
@@ -95,10 +96,45 @@
         font-size: 14px;
         font-weight: 500;
         letter-spacing: 0.3px;
+        white-space: nowrap;
         transition: color 0.2s;
       }
       nav a:hover {
         color: var(--ink);
+      }
+
+      /* Hamburger toggle — hidden on desktop, shown on narrow screens */
+      .nav-toggle {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        width: 40px;
+        height: 40px;
+        margin-right: -8px;
+        padding: 8px;
+        background: none;
+        border: 0;
+        cursor: pointer;
+      }
+      .nav-toggle span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        border-radius: 2px;
+        background: var(--ink);
+        transition:
+          transform 0.25s ease,
+          opacity 0.2s ease;
+      }
+      .nav-toggle.open span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      .nav-toggle.open span:nth-child(2) {
+        opacity: 0;
+      }
+      .nav-toggle.open span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
       }
 
       /* ── Hero ────────────────────────── */
@@ -818,10 +854,43 @@
       }
 
       /* ── Responsive ──────────────────── */
-      @media (max-width: 768px) {
+      /* Collapse the inline menu into a hamburger before it gets crowded */
+      @media (max-width: 900px) {
+        .nav-toggle {
+          display: flex;
+        }
+        nav .container {
+          position: relative;
+        }
         nav ul {
           display: none;
+          position: absolute;
+          top: 64px;
+          left: 0;
+          right: 0;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
+          padding: 6px 0;
+          background: var(--paper);
+          border-bottom: 1px solid var(--rule);
+          box-shadow: 0 12px 24px var(--shadow);
         }
+        nav ul.open {
+          display: flex;
+        }
+        nav ul a {
+          display: block;
+          padding: 13px clamp(24px, 5vw, 60px);
+          font-size: 15px;
+        }
+        nav ul a:hover {
+          background: var(--accent-wash);
+          color: var(--ink);
+        }
+      }
+
+      @media (max-width: 768px) {
         .feature-row {
           grid-template-columns: 1fr;
           gap: 32px;
@@ -997,7 +1066,16 @@
     <nav>
       <div class="container">
         <a href="#" class="logo">term<span>point</span></a>
-        <ul>
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          aria-label="Menu"
+          aria-expanded="false"
+          aria-controls="nav-menu"
+        >
+          <span></span><span></span><span></span>
+        </button>
+        <ul id="nav-menu">
           <li><a href="#problem">The Problem</a></li>
           <li><a href="#features">What TermPoint Is</a></li>
           <li><a href="#who">Who It's For</a></li>
@@ -1240,8 +1318,8 @@
       <div class="container">
         <h2 class="section-overline reveal" style="font-size: 16px; letter-spacing: 1px;">What is TermPoint?</h2>
         <p class="reveal" style="color: var(--mid); font-size: 17px; line-height: 1.7; max-width: 720px; margin-bottom: 48px;">
-          TermPoint is a desktop course-timetabling application for university and college departments. It is an easy-to-use visualization and
-          conflict-check tool, designed with the end-user in mind.    
+          TermPoint is a desktop course-timetabling application for university and college departments. It is an intuitive visualization and
+          conflict-check tool, designed to layout just the information a scheduler needs.    
           It runs locally on the user's desktop without a need for databases, cloud-software and registrar infrastructure.
         </p>
         <h2 class="section-overline reveal" style="font-size: 16px; letter-spacing: 1px;">What isn't TermPoint?</h2>
@@ -1258,7 +1336,7 @@
               <h3>Filters to what matters right now</h3>
               <p>
                 View your schedule by instructor, by room, by day, by program — or any combination. TermPoint shows you
-                exactly the slice you need and hides the clutter. Switch views instantly without losing context.
+                exactly the slice you need and hides the clutter: you no longer need to peer at the grid to find what you need.
               </p>
             </div>
           </div>
@@ -1289,7 +1367,7 @@
 
         <!-- Additional Features expander -->
         <div class="reveal" style="margin-top: 48px; text-align: center;">
-          <a href="#" id="open-addl-features" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--accent); text-decoration: none; letter-spacing: 0.5px; font-weight: 500; transition: color 0.2s;" aria-expanded="false">
+          <a href="#" id="open-addl-features" style="font-family: 'JetBrains Mono', monospace; font-size: 15px; color: var(--accent); text-decoration: none; letter-spacing: 0.5px; font-weight: 500; transition: color 0.2s;" aria-expanded="false">
             Additional Features ▸
           </a>
         </div>
@@ -1668,6 +1746,29 @@
         // Init
         updateProgress();
         resetAuto();
+      })();
+
+      // ── Mobile nav toggle ──────────────
+      (function () {
+        const toggle = document.getElementById("nav-toggle");
+        const menu = document.getElementById("nav-menu");
+        if (!toggle || !menu) return;
+
+        function setOpen(open) {
+          menu.classList.toggle("open", open);
+          toggle.classList.toggle("open", open);
+          toggle.setAttribute("aria-expanded", open ? "true" : "false");
+        }
+
+        toggle.addEventListener("click", () => setOpen(!menu.classList.contains("open")));
+        // Close after tapping a link
+        menu.addEventListener("click", (e) => {
+          if (e.target.closest("a")) setOpen(false);
+        });
+        // Close on Escape
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") setOpen(false);
+        });
       })();
 
       // ── Contact modal ──────────────────
