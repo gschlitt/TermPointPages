@@ -405,6 +405,159 @@
         transition: width 0.3s ease;
       }
 
+      /* ── Lightbox (click a slide to enlarge) ── */
+      .slide-inner img {
+        cursor: zoom-in;
+      }
+      .enlarge-hint {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        z-index: 6;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 10px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 999px;
+        background: rgba(26, 26, 46, 0.45);
+        backdrop-filter: blur(4px);
+        color: #fff;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.2px;
+        cursor: pointer;
+        opacity: 0.85;
+        transition:
+          opacity 0.2s,
+          background 0.2s;
+      }
+      .enlarge-hint:hover {
+        opacity: 1;
+        background: rgba(26, 26, 46, 0.65);
+      }
+      .enlarge-hint svg {
+        width: 13px;
+        height: 13px;
+      }
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 400;
+        display: none;
+        flex-direction: column;
+        background: rgba(18, 18, 26, 0.94);
+        backdrop-filter: blur(6px);
+      }
+      .lightbox.open {
+        display: flex;
+      }
+      .lightbox-bar {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 20px;
+        color: #fff;
+        flex-shrink: 0;
+      }
+      .lightbox-counter {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        background: rgba(255, 255, 255, 0.15);
+        padding: 3px 9px;
+        border-radius: 3px;
+        flex-shrink: 0;
+      }
+      .lightbox-caption {
+        font-size: 14px;
+        font-weight: 500;
+      }
+      .lightbox-hint {
+        margin-left: auto;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.6);
+        flex-shrink: 0;
+      }
+      .lightbox-close {
+        width: 34px;
+        height: 34px;
+        flex-shrink: 0;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        border-radius: 50%;
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .lightbox-close:hover {
+        background: rgba(255, 255, 255, 0.25);
+      }
+      .lightbox-stage {
+        flex: 1;
+        min-height: 0;
+        overflow: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 24px 24px;
+      }
+      .lightbox-stage img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        cursor: zoom-in;
+        border-radius: 4px;
+      }
+      /* Actual-size mode: native resolution, stage scrolls for inspection */
+      .lightbox.zoomed .lightbox-stage {
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
+      .lightbox.zoomed .lightbox-stage img {
+        max-width: none;
+        max-height: none;
+        width: auto;
+        height: auto;
+        cursor: zoom-out;
+        border-radius: 0;
+      }
+      .lightbox-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        font-size: 26px;
+        line-height: 1;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(4px);
+      }
+      .lightbox-arrow:hover {
+        background: rgba(255, 255, 255, 0.25);
+      }
+      .lightbox-arrow.lb-prev {
+        left: 16px;
+      }
+      .lightbox-arrow.lb-next {
+        right: 16px;
+      }
+      @media (max-width: 600px) {
+        .lightbox-hint {
+          display: none;
+        }
+      }
+
       /* ── Problem section ─────────────── */
       .problem {
         padding: 100px 0 80px;
@@ -1113,7 +1266,15 @@
 
           <div class="screenshot-body" id="slideshow">
             <div class="slideshow-progress" id="slideshow-progress"></div>
-            
+
+            <!-- Enlarge hint -->
+            <button class="enlarge-hint" id="enlarge-hint" aria-label="Enlarge slide">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" />
+              </svg>
+              Click to enlarge
+            </button>
+
             <!-- Slide 0 -->
             <div class="slide active" data-caption="A busy semester at a glance">
               <div class="slide-inner">
@@ -1228,6 +1389,11 @@
                 <svg viewBox="0 0 16 16" fill="currentColor">
                   <rect x="4" y="3" width="3" height="10" />
                   <rect x="9" y="3" width="3" height="10" />
+                </svg>
+              </button>
+              <button class="slideshow-arrow" id="expand-btn" aria-label="Enlarge slide">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
+                  <path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" />
                 </svg>
               </button>
             </div>
@@ -1470,6 +1636,21 @@
         </a>-->
       </div>
     </section>
+
+    <!-- ── Lightbox (enlarged slideshow) ── -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged screenshot" aria-hidden="true">
+      <div class="lightbox-bar">
+        <span class="lightbox-counter" id="lightbox-counter"></span>
+        <span class="lightbox-caption" id="lightbox-caption"></span>
+        <span class="lightbox-hint" id="lightbox-hint">Click image to view at full size</span>
+        <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+      </div>
+      <div class="lightbox-stage" id="lightbox-stage">
+        <img id="lightbox-img" alt="" />
+      </div>
+      <button class="lightbox-arrow lb-prev" id="lightbox-prev" aria-label="Previous slide">&#8249;</button>
+      <button class="lightbox-arrow lb-next" id="lightbox-next" aria-label="Next slide">&#8250;</button>
+    </div>
 
     <!-- ── Contact modal ──────────────── -->
     <!--
@@ -1761,6 +1942,96 @@
         // Close on Escape
         document.addEventListener("keydown", (e) => {
           if (e.key === "Escape") setOpen(false);
+        });
+      })();
+
+      // ── Slideshow lightbox (enlarge) ───
+      (function () {
+        const lb = document.getElementById("lightbox");
+        if (!lb) return;
+        const lbImg = document.getElementById("lightbox-img");
+        const lbCap = document.getElementById("lightbox-caption");
+        const lbCount = document.getElementById("lightbox-counter");
+        const stage = document.getElementById("lightbox-stage");
+        const mainPrev = document.getElementById("prev-btn");
+        const mainNext = document.getElementById("next-btn");
+        const playPause = document.getElementById("play-pause-btn");
+        let resumeOnClose = false;
+
+        // Sync lightbox contents to the currently active slide.
+        function refresh() {
+          const s = document.querySelector(".slide.active");
+          if (!s) return;
+          const img = s.querySelector("img");
+          // Use the raw src (full-resolution original), not the srcset variant.
+          lbImg.src = img.getAttribute("src");
+          lbImg.alt = img.getAttribute("alt") || "";
+          lbCap.textContent = s.dataset.caption || "";
+          lbCount.textContent = document.getElementById("slide-counter").textContent;
+          lb.classList.remove("zoomed");
+          stage.scrollTop = 0;
+          stage.scrollLeft = 0;
+        }
+
+        function open() {
+          refresh();
+          lb.classList.add("open");
+          lb.setAttribute("aria-hidden", "false");
+          document.body.style.overflow = "hidden";
+          // Pause autoplay while enlarged; remember to resume if it was playing.
+          if (playPause && playPause.getAttribute("aria-label") === "Pause slideshow") {
+            playPause.click();
+            resumeOnClose = true;
+          }
+        }
+
+        function close() {
+          lb.classList.remove("open", "zoomed");
+          lb.setAttribute("aria-hidden", "true");
+          document.body.style.overflow = "";
+          if (resumeOnClose) {
+            playPause.click();
+            resumeOnClose = false;
+          }
+        }
+
+        // Openers: any slide image, or the expand button.
+        document.querySelectorAll(".slide-inner img").forEach((img) => {
+          img.addEventListener("click", open);
+        });
+        const expandBtn = document.getElementById("expand-btn");
+        if (expandBtn) expandBtn.addEventListener("click", open);
+        const enlargeHint = document.getElementById("enlarge-hint");
+        if (enlargeHint) enlargeHint.addEventListener("click", open);
+
+        document.getElementById("lightbox-close").addEventListener("click", close);
+        document.getElementById("lightbox-next").addEventListener("click", () => {
+          mainNext.click();
+          refresh();
+        });
+        document.getElementById("lightbox-prev").addEventListener("click", () => {
+          mainPrev.click();
+          refresh();
+        });
+
+        // Click the image to toggle actual-size (100%) inspection.
+        lbImg.addEventListener("click", (e) => {
+          e.stopPropagation();
+          lb.classList.toggle("zoomed");
+          stage.scrollTop = 0;
+          stage.scrollLeft = 0;
+        });
+        // Click the dark backdrop (not the image) to close.
+        lb.addEventListener("click", (e) => {
+          if (e.target === lb || e.target === stage) close();
+        });
+
+        // Keyboard: Escape closes. Arrow keys advance the underlying slideshow
+        // (via its own handler); we just re-sync the lightbox afterward.
+        document.addEventListener("keydown", (e) => {
+          if (!lb.classList.contains("open")) return;
+          if (e.key === "Escape") close();
+          else if (e.key === "ArrowLeft" || e.key === "ArrowRight") refresh();
         });
       })();
 
