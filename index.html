@@ -1642,8 +1642,8 @@
       <div class="lightbox-bar">
         <span class="lightbox-counter" id="lightbox-counter"></span>
         <span class="lightbox-caption" id="lightbox-caption"></span>
-        <span class="lightbox-hint" id="lightbox-hint">Click image to view at full size</span>
-        <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+        <span class="lightbox-hint" id="lightbox-hint">Click image to enlarge · Esc or click outside to close</span>
+        <button class="lightbox-close" id="lightbox-close" aria-label="Close" title="Close (Esc)">&times;</button>
       </div>
       <div class="lightbox-stage" id="lightbox-stage">
         <img id="lightbox-img" alt="" />
@@ -1953,10 +1953,19 @@
         const lbCap = document.getElementById("lightbox-caption");
         const lbCount = document.getElementById("lightbox-counter");
         const stage = document.getElementById("lightbox-stage");
+        const hint = document.getElementById("lightbox-hint");
         const mainPrev = document.getElementById("prev-btn");
         const mainNext = document.getElementById("next-btn");
         const playPause = document.getElementById("play-pause-btn");
         let resumeOnClose = false;
+
+        // Hint always shows how to close; text reflects the current zoom state.
+        function updateHint() {
+          if (!hint) return;
+          hint.textContent = lb.classList.contains("zoomed")
+            ? "Click image to shrink · Esc or click outside to close"
+            : "Click image to enlarge · Esc or click outside to close";
+        }
 
         // Sync lightbox contents to the currently active slide.
         function refresh() {
@@ -1971,6 +1980,7 @@
           lb.classList.remove("zoomed");
           stage.scrollTop = 0;
           stage.scrollLeft = 0;
+          updateHint();
         }
 
         function open() {
@@ -2020,6 +2030,7 @@
           lb.classList.toggle("zoomed");
           stage.scrollTop = 0;
           stage.scrollLeft = 0;
+          updateHint();
         });
         // Click the dark backdrop (not the image) to close.
         lb.addEventListener("click", (e) => {
