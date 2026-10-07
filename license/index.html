@@ -278,6 +278,15 @@
         margin-top: 8px;
         min-height: 1.2em;
       }
+      .email-note {
+        font-size: 13px;
+        color: var(--mid);
+        margin-top: 12px;
+        line-height: 1.5;
+      }
+      .email-note a {
+        color: var(--accent);
+      }
 
       /* ── How it works ───────────────── */
       .how-section {
@@ -481,6 +490,12 @@
             Purchase License
           </button>
           <p class="dept-error" id="dept-error"></p>
+          <p class="email-note">
+            Your license file is emailed from <strong>donotreply@termpoint.ca</strong> within a few
+            minutes of purchase. University mail systems sometimes hold it in junk or quarantine, so
+            please check there if it doesn't arrive, or write to
+            <a href="mailto:admin@termpoint.ca">admin@termpoint.ca</a>.
+          </p>
         </div>
 
         
@@ -497,7 +512,8 @@
             <h3>Purchase</h3>
             <p>
               Buy a license for your department. You'll receive a small license file
-              (<code>termpoint.lic</code>) by email.
+              (<code>termpoint.lic</code>) by email from donotreply@termpoint.ca. If it
+              doesn't arrive within a few minutes, check your spam, junk, or quarantine folder.
             </p>
           </div>
           <div class="how-step">
