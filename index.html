@@ -234,6 +234,50 @@
         height: 16px;
       }
 
+      /* "New!" announcement pill in the hero; links to the import section */
+      .hero-new {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 28px;
+        padding: 8px 20px 8px 8px;
+        background: var(--accent-wash);
+        border: 1px solid var(--accent);
+        border-radius: 999px;
+        color: var(--accent);
+        font-size: 16px;
+        font-weight: 500;
+        text-decoration: none;
+        box-shadow: 0 2px 12px var(--shadow);
+        opacity: 0;
+        animation: fadeUp 0.8s 0.8s forwards;
+        transition:
+          background 0.25s,
+          transform 0.2s,
+          box-shadow 0.25s;
+      }
+      .hero-new:hover {
+        background: #dbe8d8;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 18px var(--shadow);
+      }
+      .hero-new-tag {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        background: var(--accent);
+        color: #fff;
+        padding: 4px 12px;
+        border-radius: 999px;
+      }
+      .hero-new svg {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+      }
+
       /* ── Screenshot frame ────────────── */
       .screenshot-frame {
         max-width: 1500px;
@@ -852,6 +896,37 @@
         transform: translateY(-1px);
       }
 
+      .import-section {
+        padding: 100px 0;
+        text-align: center;
+        background: var(--accent-wash);
+        border-top: 1px solid var(--rule);
+        border-bottom: 1px solid var(--rule);
+      }
+      .import-section .section-overline {
+        margin-bottom: 16px;
+      }
+      .import-section h2 {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(28px, 4vw, 44px);
+        font-weight: 400;
+        line-height: 1.2;
+        max-width: 720px;
+        margin: 0 auto 20px;
+      }
+      .import-section p {
+        color: var(--ink);
+        font-size: 17px;
+        max-width: 640px;
+        margin: 0 auto 20px;
+      }
+      .import-section p a:not(.it-btn) {
+        color: var(--accent);
+      }
+      .import-section .it-btn {
+        margin-top: 12px;
+      }
+
       /* ── Footer ──────────────────────── */
       footer {
         border-top: 1px solid var(--rule);
@@ -1257,6 +1332,14 @@
         No centralized servers. No projects. No approvals. Install it on your desktop, open your timetable, and get to work.
         </p>
 
+        <a href="#import" class="hero-new">
+          <span class="hero-new-tag">New!</span>
+          Import your existing spreadsheets
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 8h10M9 4l4 4-4 4" />
+          </svg>
+        </a>
+
         <!-- Screenshot frame — drop in a real screenshot later -->
         <div class="screenshot-frame">
           <div class="screenshot-titlebar">
@@ -1598,6 +1681,30 @@
           another person, joint access to a shared drive is all it takes. On the other hand, if you would like your IT department to evaluate TermPoint
           please see the <a href="/for-it">For IT</a> page.
         </p>
+      </div>
+    </section>
+
+    <!-- ── Import ─────────────────────── -->
+    <section class="import-section" id="import">
+      <div class="container">
+        <div class="section-overline reveal">New</div>
+        <h2 class="reveal">Already have your timetable in Excel? Bring it with you</h2>
+        <p class="reveal">
+          You don't have to retype a semester. Fill in TermPoint's simple spreadsheet template with your existing sections (or
+          rearrange your own columns to match it), choose the file, and TermPoint checks every row before it changes anything.
+          You get either a plain list of problems, each with its row and column, or a preview of exactly which sections, courses
+          and instructors will be added.
+        </p>
+        <p class="reveal">
+          Import one subject at a time or a whole semester at once. Re-importing a corrected file is safe: sections already in
+          the semester are skipped, never changed. Your files stay on your desktop the whole time.
+        </p>
+        <a href="/articles/import-excel-timetable" class="it-btn reveal">
+          How importing works
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 8h10M9 4l4 4-4 4" />
+          </svg>
+        </a>
       </div>
     </section>
 
