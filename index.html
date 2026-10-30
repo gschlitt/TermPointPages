@@ -232,6 +232,24 @@
       .hero-cta svg {
         width: 16px;
         height: 16px;
+        flex-shrink: 0;
+      }
+      .hero-cta-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+      }
+      .hero-cta-text small {
+        font-size: 12px;
+        font-weight: 400;
+        opacity: 0.85;
+        letter-spacing: 0;
+      }
+      @media (max-width: 600px) {
+        .hero-cta-text small {
+          max-width: 20ch;
+        }
       }
 
       /* "New!" announcement pill in the hero; links to the import section */
@@ -1488,7 +1506,10 @@
 
       <div class="hero-cta-row">
         <a href="https://gschlitt.github.io/SchedulingAssistant/" class="hero-cta">
-          Try an online demo (runs in your browser, no installation needed)
+          <span class="hero-cta-text">
+            Try an online demo
+            <small>Runs in your browser, no installation needed</small>
+          </span>
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M3 8h10M9 4l4 4-4 4" />
           </svg>
